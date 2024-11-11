@@ -1,0 +1,1338 @@
+### **1. Insertion at the beginning and any position in Singly Linked List**
+
+```cpp
+#include <iostream>
+using namespace std;
+
+class Node {
+public:
+    int data;
+    Node* next;
+    Node(int val) : data(val), next(nullptr) {}
+};
+
+class SinglyLinkedList {
+public:
+    Node* head;
+    SinglyLinkedList() : head(nullptr) {}
+
+    void insert_at_beginning(int data) {
+        Node* newNode = new Node(data);
+        newNode->next = head;
+        head = newNode;
+    }
+
+    void insert_at_position(int data, int position) {
+        Node* newNode = new Node(data);
+        Node* temp = head;
+        for (int i = 0; i < position - 1 && temp != nullptr; ++i) {
+            temp = temp->next;
+        }
+        if (temp != nullptr) {
+            newNode->next = temp->next;
+            temp->next = newNode;
+        }
+    }
+
+    void display() {
+        Node* temp = head;
+        while (temp) {
+            cout << temp->data << " -> ";
+            temp = temp->next;
+        }
+        cout << "None" << endl;
+    }
+};
+
+int main() {
+    SinglyLinkedList list;
+    int n, data, pos;
+   
+    cout << "Enter number of elements to insert: ";
+    cin >> n;
+
+    for (int i = 0; i < n; ++i) {
+        cout << "Enter element: ";
+        cin >> data;
+        list.insert_at_beginning(data);
+    }
+    list.display();
+
+    cout << "Enter element to insert at position: ";
+    cin >> data;
+    cout << "Enter position: ";
+    cin >> pos;
+    list.insert_at_position(data, pos);
+    list.display();
+   
+    return 0;
+}
+```
+
+**Sample Input:**
+```
+Enter number of elements to insert: 3
+Enter element: 10
+Enter element: 20
+Enter element: 30
+Enter element to insert at position: 15
+Enter position: 2
+```
+
+**Sample Output:**
+```
+30 -> 20 -> 10 -> None
+30 -> 15 -> 20 -> 10 -> None
+```
+
+---
+
+### **2. Insertion at the end and any position in Singly Linked List**
+
+```cpp
+#include <iostream>
+using namespace std;
+
+class Node {
+public:
+    int data;
+    Node* next;
+    Node(int val) : data(val), next(nullptr) {}
+};
+
+class SinglyLinkedListEnd {
+public:
+    Node* head;
+    SinglyLinkedListEnd() : head(nullptr) {}
+
+    void insert_at_end(int data) {
+        Node* newNode = new Node(data);
+        if (!head) {
+            head = newNode;
+            return;
+        }
+        Node* temp = head;
+        while (temp->next) {
+            temp = temp->next;
+        }
+        temp->next = newNode;
+    }
+
+    void insert_at_position(int data, int position) {
+        Node* newNode = new Node(data);
+        Node* temp = head;
+        for (int i = 0; i < position - 1 && temp != nullptr; ++i) {
+            temp = temp->next;
+        }
+        if (temp != nullptr) {
+            newNode->next = temp->next;
+            temp->next = newNode;
+        }
+    }
+
+    void display() {
+        Node* temp = head;
+        while (temp) {
+            cout << temp->data << " -> ";
+            temp = temp->next;
+        }
+        cout << "None" << endl;
+    }
+};
+
+int main() {
+    SinglyLinkedListEnd list;
+    int n, data, pos;
+   
+    cout << "Enter number of elements to insert at end: ";
+    cin >> n;
+
+    for (int i = 0; i < n; ++i) {
+        cout << "Enter element: ";
+        cin >> data;
+        list.insert_at_end(data);
+    }
+    list.display();
+
+    cout << "Enter element to insert at position: ";
+    cin >> data;
+    cout << "Enter position: ";
+    cin >> pos;
+    list.insert_at_position(data, pos);
+    list.display();
+   
+    return 0;
+}
+```
+
+**Sample Input:**
+```
+Enter number of elements to insert at end: 3
+Enter element: 10
+Enter element: 20
+Enter element: 30
+Enter element to insert at position: 15
+Enter position: 2
+```
+
+**Sample Output:**
+```
+10 -> 20 -> 30 -> None
+10 -> 15 -> 20 -> 30 -> None
+```
+
+---
+
+### **3. Deletion at the beginning and any position in Doubly Linked List**
+
+```cpp
+#include <iostream>
+using namespace std;
+
+class DoublyNode {
+public:
+    int data;
+    DoublyNode* prev;
+    DoublyNode* next;
+    DoublyNode(int val) : data(val), prev(nullptr), next(nullptr) {}
+};
+
+class DoublyLinkedList {
+public:
+    DoublyNode* head;
+    DoublyLinkedList() : head(nullptr) {}
+
+    void delete_at_beginning() {
+        if (head == nullptr) return;
+        DoublyNode* temp = head;
+        head = head->next;
+        if (head) head->prev = nullptr;
+        delete temp;
+    }
+
+    void delete_at_position(int position) {
+        if (head == nullptr) return;
+        DoublyNode* temp = head;
+        for (int i = 0; i < position - 1 && temp != nullptr; ++i) {
+            temp = temp->next;
+        }
+        if (temp != nullptr) {
+            if (temp->next) temp->next->prev = temp->prev;
+            if (temp->prev) temp->prev->next = temp->next;
+            delete temp;
+        }
+    }
+
+    void display() {
+        DoublyNode* temp = head;
+        while (temp) {
+            cout << temp->data << " <-> ";
+            temp = temp->next;
+        }
+        cout << "None" << endl;
+    }
+};
+
+int main() {
+    DoublyLinkedList list;
+    int n, data, pos;
+   
+    cout << "Enter number of elements: ";
+    cin >> n;
+
+    for (int i = 0; i < n; ++i) {
+        cout << "Enter element: ";
+        cin >> data;
+        DoublyNode* newNode = new DoublyNode(data);
+        if (!list.head) {
+            list.head = newNode;
+        } else {
+            DoublyNode* temp = list.head;
+            while (temp->next) temp = temp->next;
+            temp->next = newNode;
+            newNode->prev = temp;
+        }
+    }
+    list.display();
+
+    cout << "Enter position to delete: ";
+    cin >> pos;
+    list.delete_at_position(pos);
+    list.display();
+
+    cout << "Deleting first element..." << endl;
+    list.delete_at_beginning();
+    list.display();
+   
+    return 0;
+}
+```
+
+**Sample Input:**
+```
+Enter number of elements: 3
+Enter element: 10
+Enter element: 20
+Enter element: 30
+Enter position to delete: 2
+```
+
+**Sample Output:**
+```
+10 <-> 20 <-> 30 <-> None
+10 <-> 30 <-> None
+Deleting first element...
+30 <-> None
+```
+
+---
+
+### **4. Push, Pop, and Display operations on Stack**
+
+```cpp
+#include <iostream>
+using namespace std;
+
+class Stack {
+private:
+    int arr[100];
+    int top;
+public:
+    Stack() : top(-1) {}
+
+    void push(int value) {
+        if (top < 99) {
+            arr[++top] = value;
+        } else {
+            cout << "Stack Overflow" << endl;
+        }
+    }
+
+    void pop() {
+        if (top >= 0) {
+            top--;
+        } else {
+            cout << "Stack Underflow" << endl;
+        }
+    }
+
+    void display() {
+        if (top == -1) {
+            cout << "Stack is empty" << endl;
+            return;
+        }
+        for (int i = top; i >= 0; --i) {
+            cout << arr[i] << " ";
+        }
+        cout << endl;
+    }
+};
+
+int main() {
+    Stack stack;
+    int choice, value;
+   
+    while (true) {
+        cout << "1. Push\n2. Pop\n3. Display\n4. Exit\n";
+        cout << "Enter choice: ";
+        cin >> choice;
+       
+        switch(choice) {
+            case 1:
+                cout << "Enter value to push: ";
+                cin >> value;
+                stack.push(value);
+                break;
+            case 2:
+                stack.pop();
+                break;
+            case 3:
+                stack.display();
+                break;
+            case 4:
+                return 0;
+            default:
+                cout << "Invalid choice!" << endl;
+        }
+    }
+}
+```
+
+**Sample Input:**
+```
+1. Push
+Enter value to push: 10
+1. Push
+Enter value to push: 20
+3. Display
+```
+
+**Sample Output:**
+```
+10 20
+```
+
+---
+
+### **5. Enqueue, Dequeue, and Display operations on Queue**
+
+```cpp
+#include <iostream>
+using namespace std;
+
+class Queue {
+private:
+    int arr[100];
+    int front, rear;
+public:
+    Queue() : front
+
+(-1), rear(-1) {}
+
+    void enqueue(int value) {
+        if (rear == 99) {
+            cout << "Queue Overflow" << endl;
+            return;
+        }
+        if (front == -1) front = 0;
+        arr[++rear] = value;
+    }
+
+    void dequeue() {
+        if (front == -1 || front > rear) {
+            cout << "Queue Underflow" << endl;
+            return;
+        }
+        ++front;
+    }
+
+    void display() {
+        if (front == -1 || front > rear) {
+            cout << "Queue is empty" << endl;
+            return;
+        }
+        for (int i = front; i <= rear; ++i) {
+            cout << arr[i] << " ";
+        }
+        cout << endl;
+    }
+};
+
+int main() {
+    Queue queue;
+    int choice, value;
+   
+    while (true) {
+        cout << "1. Enqueue\n2. Dequeue\n3. Display\n4. Exit\n";
+        cout << "Enter choice: ";
+        cin >> choice;
+       
+        switch(choice) {
+            case 1:
+                cout << "Enter value to enqueue: ";
+                cin >> value;
+                queue.enqueue(value);
+                break;
+            case 2:
+                queue.dequeue();
+                break;
+            case 3:
+                queue.display();
+                break;
+            case 4:
+                return 0;
+            default:
+                cout << "Invalid choice!" << endl;
+        }
+    }
+}
+```
+
+**Sample Input:**
+```
+1. Enqueue
+Enter value to enqueue: 10
+1. Enqueue
+Enter value to enqueue: 20
+3. Display
+```
+
+**Sample Output:**
+```
+10 20
+```
+
+---
+
+### **6. Construct Postfix Expression**
+
+```cpp
+#include <iostream>
+#include <stack>
+#include <string>
+using namespace std;
+
+int precedence(char ch) {
+    if (ch == '+' || ch == '-') return 1;
+    if (ch == '*' || ch == '/') return 2;
+    return 0;
+}
+
+string infix_to_postfix(string infix) {
+    stack<char> s;
+    string postfix;
+   
+    for (char& ch : infix) {
+        if (isalnum(ch)) postfix += ch;
+        else if (ch == '(') s.push(ch);
+        else if (ch == ')') {
+            while (!s.empty() && s.top() != '(') {
+                postfix += s.top();
+                s.pop();
+            }
+            s.pop();
+        } else {
+            while (!s.empty() && precedence(s.top()) >= precedence(ch)) {
+                postfix += s.top();
+                s.pop();
+            }
+            s.push(ch);
+        }
+    }
+    while (!s.empty()) {
+        postfix += s.top();
+        s.pop();
+    }
+    return postfix;
+}
+
+int main() {
+    string infix;
+    cout << "Enter infix expression: ";
+    cin >> infix;
+   
+    string postfix = infix_to_postfix(infix);
+    cout << "Postfix expression: " << postfix << endl;
+   
+    return 0;
+}
+```
+
+**Sample Input:**
+```
+Enter infix expression: A*(B+C)
+```
+
+**Sample Output:**
+```
+Postfix expression: ABC+*
+```
+
+---
+
+Here are the solutions for the remaining questions:
+
+---
+
+### **7. Construct Prefix Expression**
+
+```cpp
+#include <iostream>
+#include <stack>
+#include <string>
+using namespace std;
+
+int precedence(char ch) {
+    if (ch == '+' || ch == '-') return 1;
+    if (ch == '*' || ch == '/') return 2;
+    return 0;
+}
+
+string infix_to_prefix(string infix) {
+    stack<char> s;
+    string prefix;
+    reverse(infix.begin(), infix.end());
+
+    for (char& ch : infix) {
+        if (isalnum(ch)) prefix += ch;
+        else if (ch == ')') s.push(ch);
+        else if (ch == '(') {
+            while (!s.empty() && s.top() != ')') {
+                prefix += s.top();
+                s.pop();
+            }
+            s.pop();
+        } else {
+            while (!s.empty() && precedence(s.top()) >= precedence(ch)) {
+                prefix += s.top();
+                s.pop();
+            }
+            s.push(ch);
+        }
+    }
+    while (!s.empty()) {
+        prefix += s.top();
+        s.pop();
+    }
+    reverse(prefix.begin(), prefix.end());
+    return prefix;
+}
+
+int main() {
+    string infix;
+    cout << "Enter infix expression: ";
+    cin >> infix;
+   
+    string prefix = infix_to_prefix(infix);
+    cout << "Prefix expression: " << prefix << endl;
+   
+    return 0;
+}
+```
+
+**Sample Input:**
+```
+Enter infix expression: A*(B+C)
+```
+
+**Sample Output:**
+```
+Prefix expression: *A+BC
+```
+
+---
+
+### **8. Perform Linear and Binary Search**
+
+```cpp
+#include <iostream>
+#include <vector>
+#include <algorithm>
+using namespace std;
+
+int linear_search(const vector<int>& arr, int key) {
+    for (int i = 0; i < arr.size(); ++i) {
+        if (arr[i] == key) return i;
+    }
+    return -1;
+}
+
+int binary_search(const vector<int>& arr, int key) {
+    int left = 0, right = arr.size() - 1;
+    while (left <= right) {
+        int mid = left + (right - left) / 2;
+        if (arr[mid] == key) return mid;
+        if (arr[mid] < key) left = mid + 1;
+        else right = mid - 1;
+    }
+    return -1;
+}
+
+int main() {
+    int n, key;
+    cout << "Enter number of elements: ";
+    cin >> n;
+    vector<int> arr(n);
+   
+    cout << "Enter elements: ";
+    for (int i = 0; i < n; ++i) {
+        cin >> arr[i];
+    }
+   
+    cout << "Enter key to search: ";
+    cin >> key;
+   
+    cout << "Linear Search: ";
+    int linear_result = linear_search(arr, key);
+    if (linear_result != -1) cout << "Element found at index " << linear_result << endl;
+    else cout << "Element not found" << endl;
+   
+    sort(arr.begin(), arr.end());
+    cout << "Binary Search: ";
+    int binary_result = binary_search(arr, key);
+    if (binary_result != -1) cout << "Element found at index " << binary_result << endl;
+    else cout << "Element not found" << endl;
+
+    return 0;
+}
+```
+
+**Sample Input:**
+```
+Enter number of elements: 5
+Enter elements: 10 20 30 40 50
+Enter key to search: 30
+```
+
+**Sample Output:**
+```
+Linear Search: Element found at index 2
+Binary Search: Element found at index 2
+```
+
+---
+
+### **9. Bubble Sort**
+
+```cpp
+#include <iostream>
+#include <vector>
+using namespace std;
+
+void bubble_sort(vector<int>& arr) {
+    int n = arr.size();
+    for (int i = 0; i < n-1; ++i) {
+        for (int j = 0; j < n-i-1; ++j) {
+            if (arr[j] > arr[j+1]) {
+                swap(arr[j], arr[j+1]);
+            }
+        }
+    }
+}
+
+int main() {
+    int n;
+    cout << "Enter number of elements: ";
+    cin >> n;
+    vector<int> arr(n);
+   
+    cout << "Enter elements: ";
+    for (int i = 0; i < n; ++i) {
+        cin >> arr[i];
+    }
+
+    bubble_sort(arr);
+
+    cout << "Sorted array: ";
+    for (int i = 0; i < n; ++i) {
+        cout << arr[i] << " ";
+    }
+    cout << endl;
+
+    return 0;
+}
+```
+
+**Sample Input:**
+```
+Enter number of elements: 5
+Enter elements: 5 1 4 2 8
+```
+
+**Sample Output:**
+```
+Sorted array: 1 2 4 5 8
+```
+
+---
+
+### **10. Selection Sort**
+
+```cpp
+#include <iostream>
+#include <vector>
+using namespace std;
+
+void selection_sort(vector<int>& arr) {
+    int n = arr.size();
+    for (int i = 0; i < n-1; ++i) {
+        int min_index = i;
+        for (int j = i+1; j < n; ++j) {
+            if (arr[j] < arr[min_index]) {
+                min_index = j;
+            }
+        }
+        swap(arr[i], arr[min_index]);
+    }
+}
+
+int main() {
+    int n;
+    cout << "Enter number of elements: ";
+    cin >> n;
+    vector<int> arr(n);
+
+    cout << "Enter elements: ";
+    for (int i = 0; i < n; ++i) {
+        cin >> arr[i];
+    }
+
+    selection_sort(arr);
+
+    cout << "Sorted array: ";
+    for (int i = 0; i < n; ++i) {
+        cout << arr[i] << " ";
+    }
+    cout << endl;
+
+    return 0;
+}
+```
+
+**Sample Input:**
+```
+Enter number of elements: 5
+Enter elements: 5 1 4 2 8
+```
+
+**Sample Output:**
+```
+Sorted array: 1 2 4 5 8
+```
+
+---
+
+### **11. Insertion Sort**
+
+```cpp
+#include <iostream>
+#include <vector>
+using namespace std;
+
+void insertion_sort(vector<int>& arr) {
+    int n = arr.size();
+    for (int i = 1; i < n; ++i) {
+        int key = arr[i];
+        int j = i - 1;
+        while (j >= 0 && arr[j] > key) {
+            arr[j + 1] = arr[j];
+            --j;
+        }
+        arr[j + 1] = key;
+    }
+}
+
+int main() {
+    int n;
+    cout << "Enter number of elements: ";
+    cin >> n;
+    vector<int> arr(n);
+
+    cout << "Enter elements: ";
+    for (int i = 0; i < n; ++i) {
+        cin >> arr[i];
+    }
+
+    insertion_sort(arr);
+
+    cout << "Sorted array: ";
+    for (int i = 0; i < n; ++i) {
+        cout << arr[i] << " ";
+    }
+    cout << endl;
+
+    return 0;
+}
+```
+
+**Sample Input:**
+```
+Enter number of elements: 5
+Enter elements: 5 1 4 2 8
+```
+
+**Sample Output:**
+```
+Sorted array: 1 2 4 5 8
+```
+
+---
+
+### **12. Merge Sort**
+
+```cpp
+#include <iostream>
+#include <vector>
+using namespace std;
+
+void merge(vector<int>& arr, int left, int mid, int right) {
+    int n1 = mid - left + 1;
+    int n2 = right - mid;
+
+    vector<int> L(n1), R(n2);
+    for (int i = 0; i < n1; ++i) L[i] = arr[left + i];
+    for (int i = 0; i < n2; ++i) R[i] = arr[mid + 1 + i];
+
+    int i = 0, j = 0, k = left;
+    while (i < n1 && j < n2) {
+        if (L[i] <= R[j]) arr[k++] = L[i++];
+        else arr[k++] = R[j++];
+    }
+
+    while (i < n1) arr[k++] = L[i++];
+    while (j < n2) arr[k++] = R[j++];
+}
+
+void merge_sort(vector<int>& arr, int left, int right) {
+    if (left < right) {
+        int mid = left + (right - left) / 2;
+        merge_sort(arr, left, mid);
+        merge_sort(arr, mid + 1, right);
+        merge(arr, left, mid, right);
+    }
+}
+
+int main() {
+    int n;
+    cout << "Enter number of elements: ";
+    cin >> n;
+    vector<int> arr(n);
+
+    cout << "Enter elements: ";
+    for (int i = 0; i < n; ++i) {
+        cin >> arr[i];
+    }
+
+    merge_sort(arr, 0, n - 1);
+
+    cout << "Sorted array: ";
+    for (int i = 0; i < n; ++i
+
+) {
+        cout << arr[i] << " ";
+    }
+    cout << endl;
+
+    return 0;
+}
+```
+
+**Sample Input:**
+```
+Enter number of elements: 5
+Enter elements: 5 1 4 2 8
+```
+
+**Sample Output:**
+```
+Sorted array: 1 2 4 5 8
+```
+
+---
+
+Here are the solutions for the remaining questions:
+
+---
+
+### **13. Quick Sort**
+
+```cpp
+#include <iostream>
+#include <vector>
+using namespace std;
+
+int partition(vector<int>& arr, int low, int high) {
+    int pivot = arr[high];
+    int i = low - 1;
+
+    for (int j = low; j < high; ++j) {
+        if (arr[j] < pivot) {
+            ++i;
+            swap(arr[i], arr[j]);
+        }
+    }
+    swap(arr[i + 1], arr[high]);
+    return i + 1;
+}
+
+void quick_sort(vector<int>& arr, int low, int high) {
+    if (low < high) {
+        int pi = partition(arr, low, high);
+        quick_sort(arr, low, pi - 1);
+        quick_sort(arr, pi + 1, high);
+    }
+}
+
+int main() {
+    int n;
+    cout << "Enter number of elements: ";
+    cin >> n;
+    vector<int> arr(n);
+
+    cout << "Enter elements: ";
+    for (int i = 0; i < n; ++i) {
+        cin >> arr[i];
+    }
+
+    quick_sort(arr, 0, n - 1);
+
+    cout << "Sorted array: ";
+    for (int i = 0; i < n; ++i) {
+        cout << arr[i] << " ";
+    }
+    cout << endl;
+
+    return 0;
+}
+```
+
+**Sample Input:**
+```
+Enter number of elements: 5
+Enter elements: 5 1 4 2 8
+```
+
+**Sample Output:**
+```
+Sorted array: 1 2 4 5 8
+```
+
+---
+
+### **14. Insert Element into Binary Search Tree**
+
+```cpp
+#include <iostream>
+using namespace std;
+
+struct Node {
+    int data;
+    Node* left;
+    Node* right;
+};
+
+Node* newNode(int data) {
+    Node* node = new Node();
+    node->data = data;
+    node->left = node->right = nullptr;
+    return node;
+}
+
+Node* insert(Node* root, int data) {
+    if (root == nullptr) return newNode(data);
+
+    if (data < root->data)
+        root->left = insert(root->left, data);
+    else if (data > root->data)
+        root->right = insert(root->right, data);
+
+    return root;
+}
+
+void inorder(Node* root) {
+    if (root == nullptr) return;
+    inorder(root->left);
+    cout << root->data << " ";
+    inorder(root->right);
+}
+
+int main() {
+    Node* root = nullptr;
+    int n, data;
+    cout << "Enter number of elements: ";
+    cin >> n;
+   
+    cout << "Enter elements: ";
+    for (int i = 0; i < n; ++i) {
+        cin >> data;
+        root = insert(root, data);
+    }
+
+    cout << "Inorder traversal: ";
+    inorder(root);
+    cout << endl;
+
+    return 0;
+}
+```
+
+**Sample Input:**
+```
+Enter number of elements: 5
+Enter elements: 10 20 5 8 30
+```
+
+**Sample Output:**
+```
+Inorder traversal: 5 8 10 20 30
+```
+
+---
+
+### **15. Search Element in Binary Search Tree**
+
+```cpp
+#include <iostream>
+using namespace std;
+
+struct Node {
+    int data;
+    Node* left;
+    Node* right;
+};
+
+Node* newNode(int data) {
+    Node* node = new Node();
+    node->data = data;
+    node->left = node->right = nullptr;
+    return node;
+}
+
+Node* insert(Node* root, int data) {
+    if (root == nullptr) return newNode(data);
+
+    if (data < root->data)
+        root->left = insert(root->left, data);
+    else if (data > root->data)
+        root->right = insert(root->right, data);
+
+    return root;
+}
+
+bool search(Node* root, int key) {
+    if (root == nullptr) return false;
+
+    if (root->data == key) return true;
+    else if (key < root->data) return search(root->left, key);
+    else return search(root->right, key);
+}
+
+int main() {
+    Node* root = nullptr;
+    int n, data, key;
+    cout << "Enter number of elements: ";
+    cin >> n;
+   
+    cout << "Enter elements: ";
+    for (int i = 0; i < n; ++i) {
+        cin >> data;
+        root = insert(root, data);
+    }
+
+    cout << "Enter key to search: ";
+    cin >> key;
+
+    if (search(root, key))
+        cout << "Element found in the tree." << endl;
+    else
+        cout << "Element not found in the tree." << endl;
+
+    return 0;
+}
+```
+
+**Sample Input:**
+```
+Enter number of elements: 5
+Enter elements: 10 20 5 8 30
+Enter key to search: 20
+```
+
+**Sample Output:**
+```
+Element found in the tree.
+```
+
+---
+
+### **16. Inorder Traversal of Binary Search Tree**
+
+```cpp
+#include <iostream>
+using namespace std;
+
+struct Node {
+    int data;
+    Node* left;
+    Node* right;
+};
+
+Node* newNode(int data) {
+    Node* node = new Node();
+    node->data = data;
+    node->left = node->right = nullptr;
+    return node;
+}
+
+Node* insert(Node* root, int data) {
+    if (root == nullptr) return newNode(data);
+
+    if (data < root->data)
+        root->left = insert(root->left, data);
+    else if (data > root->data)
+        root->right = insert(root->right, data);
+
+    return root;
+}
+
+void inorder(Node* root) {
+    if (root == nullptr) return;
+    inorder(root->left);
+    cout << root->data << " ";
+    inorder(root->right);
+}
+
+int main() {
+    Node* root = nullptr;
+    int n, data;
+    cout << "Enter number of elements: ";
+    cin >> n;
+   
+    cout << "Enter elements: ";
+    for (int i = 0; i < n; ++i) {
+        cin >> data;
+        root = insert(root, data);
+    }
+
+    cout << "Inorder traversal: ";
+    inorder(root);
+    cout << endl;
+
+    return 0;
+}
+```
+
+**Sample Input:**
+```
+Enter number of elements: 5
+Enter elements: 10 20 5 8 30
+```
+
+**Sample Output:**
+```
+Inorder traversal: 5 8 10 20 30
+```
+
+---
+
+### **17. Preorder Traversal of Binary Search Tree**
+
+```cpp
+#include <iostream>
+using namespace std;
+
+struct Node {
+    int data;
+    Node* left;
+    Node* right;
+};
+
+Node* newNode(int data) {
+    Node* node = new Node();
+    node->data = data;
+    node->left = node->right = nullptr;
+    return node;
+}
+
+Node* insert(Node* root, int data) {
+    if (root == nullptr) return newNode(data);
+
+    if (data < root->data)
+        root->left = insert(root->left, data);
+    else if (data > root->data)
+        root->right = insert(root->right, data);
+
+    return root;
+}
+
+void preorder(Node* root) {
+    if (root == nullptr) return;
+    cout << root->data << " ";
+    preorder(root->left);
+    preorder(root->right);
+}
+
+int main() {
+    Node* root = nullptr;
+    int n, data;
+    cout << "Enter number of elements: ";
+    cin >> n;
+   
+    cout << "Enter elements: ";
+    for (int i = 0; i < n; ++i) {
+        cin >> data;
+        root = insert(root, data);
+    }
+
+    cout << "Preorder traversal: ";
+    preorder(root);
+    cout << endl;
+
+    return 0;
+}
+```
+
+**Sample Input:**
+```
+Enter number of elements: 5
+Enter elements: 10 20 5 8 30
+```
+
+**Sample Output:**
+```
+Preorder traversal: 10 5 8 20 30
+```
+
+---
+
+### **18. Postorder Traversal of Binary Search Tree**
+
+```cpp
+#include <iostream>
+using namespace std;
+
+struct Node {
+    int data;
+    Node* left;
+    Node* right;
+};
+
+Node* newNode(int data) {
+    Node* node = new Node();
+    node->data = data;
+    node->left = node->right = nullptr;
+    return node;
+}
+
+Node* insert(Node* root, int data) {
+    if (root == nullptr) return newNode(data);
+
+    if (data < root->data)
+        root->left = insert(root->left, data);
+    else if (data > root->data)
+        root->right = insert(root->right, data);
+
+    return root;
+}
+
+void postorder(Node* root) {
+    if (root == nullptr) return;
+    postorder(root->left);
+    postorder(root->right);
+    cout << root->data << " ";
+}
+
+int main() {
+    Node* root = nullptr;
+    int n, data;
+    cout << "Enter number of elements: ";
+    cin >> n;
+   
+    cout << "Enter elements: ";
+    for (int i = 0; i < n
+
+; ++i) {
+        cin >> data;
+        root = insert(root, data);
+    }
+
+    cout << "Postorder traversal: ";
+    postorder(root);
+    cout << endl;
+
+    return 0;
+}
+```
+
+**Sample Input:**
+```
+Enter number of elements: 5
+Enter elements: 10 20 5 8 30
+```
+
+**Sample Output:**
+```
+Postorder traversal: 5 8 30 20 10
+```
+
+---
