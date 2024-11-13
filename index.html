@@ -3,1863 +3,1112 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DSA Solutions</title>
+    <title>Python Practical Answers</title>
     <style>
         body {
             font-family: Arial, sans-serif;
-            line-height: 1.6;
             background-color: #f4f4f4;
+            color: #333;
+            line-height: 1.6;
             margin: 0;
             padding: 0;
         }
-        header {
-            background-color: #333;
-            color: white;
-            padding: 1rem;
-            text-align: center;
+        .container {
+            width: 80%;
+            margin: auto;
+            overflow: hidden;
         }
-        main {
-            padding: 2rem;
-            background-color: white;
-        }
-        section {
-            margin-bottom: 2rem;
-        }
-        h2 {
+        h1, h2 {
             color: #333;
         }
-        pre {
-            background-color: #e8e8e8;
-            padding: 1rem;
+        .practical {
+            background: #fff;
+            padding: 15px;
+            margin-bottom: 20px;
             border-radius: 5px;
-            overflow-x: auto;
-            white-space: pre-wrap;
+            box-shadow: 0 0 5px rgba(0,0,0,0.2);
         }
-        footer {
-            background-color: #333;
-            color: white;
-            text-align: center;
-            padding: 1rem;
-            position: fixed;
-            width: 100%;
-            bottom: 0;
+        code {
+            display: block;
+            background: #f7f7f7;
+            padding: 10px;
+            margin: 10px 0;
+            border-left: 4px solid #333;
+            overflow-x: auto;
         }
     </style>
 </head>
 <body>
 
-<header>
-    <h1>DSA Solutions</h1>
-    <p>Answers to Data Structures and Algorithms Questions</p>
-</header>
+<div class="container">
+    <h1>Python Practical Answers</h1>
 
-<main>
-    <section>
-        <h2>1. Insertion at the Beginning and Any Position in Singly Linked List</h2>
-        <pre>
-            <!-- Paste your code and explanation here -->
-            #include <iostream> 
-                using namespace std; 
-                 
-                class Node { 
-                public: 
-                    int data; 
-                    Node* next; 
-                }; 
-                 
-                class SinglyLinkedList { 
-                public: 
-                    Node* head; 
-                 
-                    SinglyLinkedList() { 
-                        head = nullptr; 
-                    } 
-                 
-                    // Function to insert a new node at the beginning of the list 
-                    void insertAtBeginning(int value) { 
-                        Node* newNode = new Node(); 
-                        newNode->data = value;  
-                        newNode->next = head;  
-                        head = newNode;  
-                    } 
-                 
-                    // Function to insert a new node at a specific position in the list 
-                    void insertAtPosition(int value, int position) { 
-                        if (position < 1) { 
-                            cout << "Position should be >= 1." << endl; 
-                            return; 
-                        } 
-                 
-                        if (position == 1) { 
-                            insertAtBeginning(value); 
-                            return; 
-                        } 
-                 
-                        Node* newNode = new Node();  
-                        newNode->data = value;  
-                 
-                        // Traverse to the node before the desired position 
-                        Node* temp = head; 
-                        for (int i = 1; i < position - 1; ++i) { 
-                            temp = temp->next; 
-                            if (!temp) { // Check if temp is nullptr 
-                                cout << "Position out of range." << endl; 
-                                delete newNode; // Clean up 
-                                return; 
-                            } 
-                        } 
-                 
-                        // Insert the new node at the desired position 
-                        newNode->next = temp->next; 
-                        temp->next = newNode; 
-                    } 
-                 
-                    // Function to display the list 
-                    void display() { 
-                        Node* temp = head; 
-                        while (temp != nullptr) { 
-                            cout << temp->data << " -> "; 
-                            temp = temp->next; 
-                        } 
-                        cout << "nullptr" << endl; 
-                    } 
-                }; 
-                 
-                int main() { 
-                    SinglyLinkedList list; 
-                    int choice, value, position; 
-                 
-                    while (true) { 
-                        cout << "\nMenu:\n"; 
-                        cout << "1. Insert at Beginning\n"; 
-                        cout << "2. Insert at Position\n"; 
-                        cout << "3. Display List\n"; 
-                        cout << "4. Exit\n"; 
-                        cout << "Enter your choice: "; 
-                        cin >> choice; 
-                 
-                        switch (choice) { 
-                            case 1: 
-                                cout << "Enter value to insert at beginning: "; 
-                                cin >> value; 
-                                list.insertAtBeginning(value); 
-                                cout << "Inserted " << value << " at the beginning." << endl; 
-                                break; 
-                 
-                            case 2: 
-                                cout << "Enter value to insert: "; 
-                                cin >> value; 
-                                cout << "Enter position to insert at: "; 
-                                cin >> position; 
-                                list.insertAtPosition(value, position); 
-                                cout << "Inserted " << value << " at position " << position << "." << endl; 
-                                break; 
-                 
-                            case 3: 
-                                cout << "Current List: "; 
-                                list.display(); 
-                                break; 
-                 
-                            case 4: 
-                                cout << "Exiting program." << endl; 
-                                return 0; 
-                 
-                            default: 
-                                cout << "Invalid choice. Please try again." << endl; 
-                        } 
-                    } 
-                    return 0; 
-                } 
-                 
-                Output: 
-                Menu: 
-                1. Insert at Beginning 
-                2. Insert at Position 
-                3. Display List 
-                4. Exit 
-                Enter your choice: 1 
-                Enter value to insert at beginning: 10 
-                Inserted 10 at the beginning. 
-                Menu: 
-                1. Insert at Beginning 
-                2. Insert at Position 
-                3. Display List 
-                4. Exit 
-                Enter your choice: 2 
-                Enter value to insert: 20 
-                Enter position to insert at: 2 
-                Inserted 20 at position 2. 
-                Menu: 
-                1. Insert at Beginning 
-                2. Insert at Position 
-                3. Display List 
-                4. Exit 
-                Enter your choice: 3 
-                Current List: 10 -> 20 -> nullptr
-        </pre>
-    </section>
+    <!-- Practical 1 -->
+    <div class="practical">
+        <h2>Q1: Python program to implement all list operations</h2>
+        <code>
+            <!-- Add code here -->
+            # Initialize a list
+            my_list = [1, 2, 3, 4, 5]
+            
+            # 1. Adding elements
+            # Append an element
+            my_list.append(6)
+            print("After appending 6:", my_list)
+            
+            # Insert an element at a specific position
+            my_list.insert(0, 0)  # Insert 0 at index 0
+            print("After inserting 0 at index 0:", my_list)
+            
+            # Extend the list with another list
+            my_list.extend([7, 8, 9])
+            print("After extending with [7, 8, 9]:", my_list)
+            
+            # 2. Removing elements
+            # Remove a specific element by value
+            my_list.remove(4)
+            print("After removing 4:", my_list)
+            
+            # Pop an element from the end
+            popped_element = my_list.pop()
+            print("After popping an element:", my_list, "| Popped element:", popped_element)
+            
+            # Pop an element from a specific index
+            popped_element_at_2 = my_list.pop(2)
+            print("After popping element at index 2:", my_list, "| Popped element:", popped_element_at_2)
+            
+            # 3. Modifying elements
+            my_list[0] = 10  # Change the first element
+            print("After changing first element to 10:", my_list)
+            
+            # 4. Searching for elements
+            if 5 in my_list:
+                print("5 is in the list.")
+            
+            # Find index of an element
+            index_of_5 = my_list.index(5) if 5 in my_list else None
+            print("Index of 5:", index_of_5)
+            
+            # 5. Sorting the list
+            my_list.sort()  # Sort the list in ascending order
+            print("After sorting:", my_list)
+            
+            # 6. Reversing the list
+            my_list.reverse()
+            print("After reversing:", my_list)
+            
+            # 7. List comprehension example
+            squared_list = [x**2 for x in my_list]
+            print("Squared elements:", squared_list)
+            
+            # 8. Length of the list
+            length_of_list = len(my_list)
+            print("Length of the list:", length_of_list)
+            
+            # 9. Clearing the list
+            my_list.clear()
+            print("After clearing the list:", my_list)
+            
+        </code>
+    </div>
 
-    <section>
-        <h2>2. Insertion at the End and Any Position in Singly Linked List</h2>
-        <pre>
-           
-            <!-- Paste your code and explanation here -->
-            #include <iostream> 
-                using namespace std; 
-                class Node { 
-                public: 
-                int data; 
-                Node* next; 
-                }; 
-                class SinglyLinkedList { 
-                public: 
-                Node* head; 
-                SinglyLinkedList() { 
-                head = nullptr; 
-                } 
-                // Function to insert a new node at the end of the list 
-                void insertAtEnd(int value) { 
-                Node* newNode = new Node(); 
-                newNode->data = value; 
-                newNode->next = nullptr; 
-                if (head == nullptr) { 
-                head = newNode; 
-                } else { 
-                Node* temp = head; 
-                while (temp->next != nullptr) { 
-                temp = temp->next; 
-                } 
-                            temp->next = newNode; 
-                        } 
-                    } 
-                 
-                    // Function to insert a new node at a specific position in the list 
-                    void insertAtPosition(int value, int position) { 
-                        if (position < 1) { 
-                            cout << "Position should be >= 1." << endl; 
-                            return; 
-                        } 
-                 
-                        if (position == 1) { 
-                            Node* newNode = new Node(); 
-                            newNode->data = value; 
-                            newNode->next = head; 
-                            head = newNode; 
-                            return; 
-                        } 
-                 
-                        Node* newNode = new Node(); 
-                        newNode->data = value; 
-                 
-                        Node* temp = head; 
-                        for (int i = 1; i < position - 1; ++i) { 
-                            temp = temp->next; 
-                            if (!temp) { 
-                                cout << "Position out of range." << endl; 
-                                delete newNode; 
-                                return; 
-                            } 
-                        } 
-                 
-                        newNode->next = temp->next; 
-                        temp->next = newNode; 
-                    } 
-                 
-                    // Function to display the list 
-                    void display() { 
-                        Node* temp = head; 
-                        while (temp != nullptr) { 
-                            cout << temp->data << " -> "; 
-                            temp = temp->next; 
-                        } 
-                        cout << "nullptr" << endl; 
-                    } 
-                }; 
-                 
-                int main() { 
-                    SinglyLinkedList list; 
-                    int choice, value, position; 
-                 
-                    while (true) { 
-                        cout << "\nMenu:\n"; 
-                        cout << "1. Insert at End\n"; 
-                        cout << "2. Insert at Position\n"; 
-                        cout << "3. Display List\n"; 
-                        cout << "4. Exit\n"; 
-                        cout << "Enter your choice: "; 
-                        cin >> choice; 
-                 
-                        switch (choice) { 
-                            case 1: 
-                                cout << "Enter value to insert at end: "; 
-                                cin >> value; 
-                                list.insertAtEnd(value); 
-                                cout << "Inserted " << value << " at the end." << endl; 
-                                break; 
-                 
-                            case 2: 
-                                cout << "Enter value to insert: "; 
-                                cin >> value; 
-                                cout << "Enter position to insert at: "; 
-                                cin >> position; 
-                                list.insertAtPosition(value, position); 
-                                cout << "Inserted " << value << " at position " << position << "." << endl; 
-                                break; 
-                 
-                            case 3: 
-                                cout << "Current List: "; 
-                                list.display(); 
-                                break; 
-                 
-                            case 4: 
-                                cout << "Exiting program." << endl; 
-                                return 0; 
-                 
-                            default: 
-                                cout << "Invalid choice. Please try again." << endl; 
-                        } 
-                    } 
-                    return 0; 
-                } 
-                 
-                Output: 
-                Menu: 
-                1. Insert at End 
-                2. Insert at Position 
-                3. Display List 
-                4. Exit 
-                Enter your choice: 1 
-                Enter value to insert at end: 10 
-                Inserted 10 at the end. 
-                 
-                Menu: 
-                1. Insert at End 
-                2. Insert at Position 
-                3. Display List 
-                4. Exit 
-                Enter your choice: 2 
-                Enter value to insert: 20 
-                Enter position to insert at: 1 
-                Inserted 20 at position 1. 
-                 
-                Menu: 
-                1. Insert at End 
-                2. Insert at Position 
-                3. Display List 
-                4. Exit 
-                Enter your choice: 3 
-                Current List: 20 -> 10 -> nullptr
-        </pre>
-    </section>
+    <!-- Practical 2 -->
+    <div class="practical">
+        <h2>Q2: Python program to implement all dictionary operations</h2>
+        <code>
+            <!-- Add code here -->
+            # Initialize a dictionary
+            my_dict = {
+                'name': 'Alice',
+                'age': 25,
+                'city': 'New York'
+            }
+            
+            # 1. Adding elements
+            # Add a new key-value pair
+            my_dict['email'] = 'alice@example.com'
+            print("After adding email:", my_dict)
+            
+            # 2. Modifying elements
+            # Change the value of an existing key
+            my_dict['age'] = 26
+            print("After updating age:", my_dict)
+            
+            # 3. Removing elements
+            # Remove a key-value pair using del
+            del my_dict['city']
+            print("After deleting city:", my_dict)
+            
+            # Remove a key-value pair using pop
+            email = my_dict.pop('email')
+            print("After popping email:", my_dict, "| Popped email:", email)
+            
+            # 4. Searching for elements
+            # Check if a key exists in the dictionary
+            if 'name' in my_dict:
+                print("Name is present in the dictionary.")
+            
+            # Get the value of a key
+            age = my_dict.get('age')
+            print("Age:", age)
+            
+            # 5. Iterating over a dictionary
+            # Iterate through keys
+            print("Keys:")
+            for key in my_dict.keys():
+                print(key)
+            
+            # Iterate through values
+            print("Values:")
+            for value in my_dict.values():
+                print(value)
+            
+            # Iterate through key-value pairs
+            print("Key-Value Pairs:")
+            for key, value in my_dict.items():
+                print(f"{key}: {value}")
+            
+            # 6. Dictionary comprehension
+            squared_dict = {x: x**2 for x in range(5)}  # Example of a dictionary comprehension
+            print("Squared dictionary:", squared_dict)
+            
+            # 7. Length of the dictionary
+            length_of_dict = len(my_dict)
+            print("Length of the dictionary:", length_of_dict)
+            
+            # 8. Clearing the dictionary
+            my_dict.clear()
+            print("After clearing the dictionary:", my_dict)
+            
+            # 9. Merging dictionaries
+            another_dict = {'gender': 'female', 'occupation': 'engineer'}
+            my_dict.update(another_dict)
+            print("After merging with another dictionary:", my_dict)
+            
+        </code>
+    </div>
 
-    <section>
-        <h2>3. Deletion at the Beginning and Any Position in Doubly Linked List</h2>
-        <pre>
-            <!-- Paste your code and explanation here -->
-            #include <iostream> 
-using namespace std; 
- 
-class Node { 
-public: 
-    int data; 
-    Node* prev; 
-    Node* next; 
-}; 
- 
-class DoublyLinkedList { 
-public: 
-    Node* head; 
- 
-    DoublyLinkedList() { 
-        head = nullptr; 
-    } 
- 
-    // Function to insert a new node at the end of the list (helper function for testing) 
-    void insertAtEnd(int value) { 
-        Node* newNode = new Node(); 
-        newNode->data = value; 
-        newNode->prev = nullptr; 
-        newNode->next = nullptr; 
- 
-        if (head == nullptr) { 
-            head = newNode; 
-        } else { 
-            Node* temp = head; 
-            while (temp->next != nullptr) { 
-                temp = temp->next; 
-            } 
-            temp->next = newNode; 
-            newNode->prev = temp; 
-        } 
-    } 
- 
-    // Function to delete the node at the beginning of the list 
-    void deleteAtBeginning() { 
-        if (head == nullptr) { 
-            cout << "List is empty." << endl; 
-            return; 
-        } 
- 
-        Node* temp = head; 
-        head = head->next; 
-        if (head != nullptr) { 
-            head->prev = nullptr; 
-        } 
-        delete temp; 
-        cout << "Deleted node at the beginning." << endl; 
-    } 
- 
-    // Function to delete a node at a specific position in the list 
-    void deleteAtPosition(int position) { 
-        if (head == nullptr) { 
-            cout << "List is empty." << endl; 
-            return; 
-        } 
- 
-        if (position < 1) { 
-            cout << "Position should be >= 1." << endl; 
-            return; 
-        } 
- 
-        Node* temp = head; 
- 
-        // If the head needs to be removed 
-        if (position == 1) { 
-            deleteAtBeginning(); 
-            return; 
-        } 
- 
-        // Traverse to the node at the desired position 
-        for (int i = 1; temp != nullptr && i < position; ++i) { 
-            temp = temp->next; 
-        } 
- 
-        if (temp == nullptr) { 
-            cout << "Position out of range." << endl; 
-            return; 
-        } 
- 
-        // Adjust the pointers and delete the node 
-        if (temp->next != nullptr) { 
-            temp->next->prev = temp->prev; 
-        } 
-        if (temp->prev != nullptr) { 
-            temp->prev->next = temp->next; 
-        } 
-        delete temp; 
-        cout << "Deleted node at position " << position << "." << endl; 
-    } 
- 
-    // Function to display the list 
-    void display() { 
-        Node* temp = head; 
-        while (temp != nullptr) { 
-            cout << temp->data << " <-> "; 
-            temp = temp->next; 
-        } 
-        cout << "nullptr" << endl; 
-    } 
-}; 
- 
-int main() { 
-    DoublyLinkedList list; 
-    int choice, value, position; 
- 
-    while (true) { 
-        cout << "\nMenu:\n"; 
-        cout << "1. Insert at End\n";       // Helper function for testing 
-        cout << "2. Delete at Beginning\n"; 
-        cout << "3. Delete at Position\n"; 
-        cout << "4. Display List\n"; 
-        cout << "5. Exit\n"; 
-        cout << "Enter your choice: "; 
-        cin >> choice; 
- 
-        switch (choice) { 
-            case 1: 
-                cout << "Enter value to insert at end: "; 
-                cin >> value; 
-                list.insertAtEnd(value); 
-                cout << "Inserted " << value << " at the end." << endl; 
-                break; 
- 
-            case 2: 
-                list.deleteAtBeginning(); 
-                break; 
- 
-            case 3: 
-                cout << "Enter position to delete: "; 
-                cin >> position; 
-                list.deleteAtPosition(position); 
-                break; 
- 
-            case 4: 
-                cout << "Current List: "; 
-                list.display(); 
-                break; 
- 
-            case 5: 
-                cout << "Exiting program." << endl; 
-                return 0; 
- 
-            default: 
-                cout << "Invalid choice. Please try again." << endl; 
-        } 
-    } 
-    return 0; 
-} 
- 
-Output: 
-Menu: 
-1. Insert at End 
-2. Delete at Beginning 
-3. Delete at Position 
-4. Display List 
-5. Exit 
-Enter your choice: 1 
-Enter value to insert at end: 10 
-Inserted 10 at the end. 
- 
-Menu: 
-1. Insert at End 
-2. Delete at Beginning 
-3. Delete at Position 
-4. Display List 
-5. Exit 
-Enter your choice: 2 
-Deleted node at the beginning. 
- 
-Menu: 
-1. Insert at End 
-2. Delete at Beginning 
-3. Delete at Position 
-4. Display List 
-5. Exit 
-Enter your choice: 4 
-Current List: nullptr
-        </pre>
-    </section>
+    <!-- Practical 3 -->
+    <div class="practical">
+        <h2>Q3: Python program to implement all set operations</h2>
+        <code>
+            <!-- Add code here -->
+            # Initialize a set
+            my_set = {1, 2, 3, 4, 5}
+            
+            # 1. Adding elements
+            # Add a single element
+            my_set.add(6)
+            print("After adding 6:", my_set)
+            
+            # Add multiple elements
+            my_set.update([7, 8, 9])
+            print("After updating with [7, 8, 9]:", my_set)
+            
+            # 2. Removing elements
+            # Remove a specific element (raises KeyError if not found)
+            my_set.remove(4)
+            print("After removing 4:", my_set)
+            
+            # Remove a specific element (does not raise an error if not found)
+            my_set.discard(5)
+            print("After discarding 5:", my_set)
+            
+            # Pop an element (removes and returns an arbitrary element)
+            popped_element = my_set.pop()
+            print("After popping an element:", my_set, "| Popped element:", popped_element)
+            
+            # 3. Checking membership
+            print("Is 3 in the set?", 3 in my_set)
+            
+            # 4. Set operations
+            set_a = {1, 2, 3}
+            set_b = {3, 4, 5}
+            
+            # Union
+            union_set = set_a | set_b
+            print("Union of set_a and set_b:", union_set)
+            
+            # Intersection
+            intersection_set = set_a & set_b
+            print("Intersection of set_a and set_b:", intersection_set)
+            
+            # Difference
+            difference_set = set_a - set_b
+            print("Difference of set_a and set_b (set_a - set_b):", difference_set)
+            
+            # Symmetric difference
+            symmetric_difference_set = set_a ^ set_b
+            print("Symmetric difference of set_a and set_b:", symmetric_difference_set)
+            
+            # 5. Set comprehension
+            squared_set = {x**2 for x in range(5)}
+            print("Squared set:", squared_set)
+            
+            # 6. Length of the set
+            length_of_set = len(my_set)
+            print("Length of the set:", length_of_set)
+            
+            # 7. Clearing the set
+            my_set.clear()
+            print("After clearing the set:", my_set)
+            
+            # 8. Creating a set from a list (removing duplicates)
+            my_list = [1, 2, 2, 3, 4, 5, 5]
+            new_set = set(my_list)
+            print("Set created from list (removing duplicates):", new_set)
+            
+        </code>
+    </div>
 
-    <section>
-        <h2>4. Stack Operations: Push, Pop, and Display</h2>
-        <pre>
-            <!-- Paste your code and explanation here -->
-        #include <iostream> 
-using namespace std; 
-class stack 
-{ 
-    public: 
-    int val; 
-    int top=-1,n=5,stack[5]; 
-    void push() 
-    { 
-        if(top==n-1) 
-        { 
-            cout<<"Stack is Overflow:"; 
-        } 
-        else 
-        { 
-            cout<<"Enter your element:"; 
-            cin>>val; 
-            top++; 
-            stack[top]=val; 
-        } 
-    }; 
-    void pop() 
-    { 
-        if(top==-1) 
-        { 
-            cout<<"Stack is Unterflow:"; 
-        } 
-        else 
-        { 
-            cout<<"Delete item is:"<<stack[top]; 
-            top--; 
-             
-        }   
-    }; 
-    void display() 
-    { 
-        int i; 
-        if(top>=0) 
-        { 
-            cout<<"Stack elements are :"; 
-            for(i=top;i>=0;i--) 
-            { 
-                cout<<stack[i]; 
-                cout<<endl; 
-            } 
-        } 
-        else 
-        { 
-            cout<<"Stack is not available:"; 
-        } 
-    }; 
-}; 
-int main() 
-{ 
-stack s; 
-int ch; 
-int val; 
-cout<<"\n 1. Enter the 1 push Function:"; 
-cout<<"\n 2. Enter the 2 for pop Function:"; 
-cout<<"\n 3. Enter the 3 display Function:"; 
-cout<<"\n 4. Enter the 4 to Exit Function:"; 
- 
-do 
-{ 
-    cout<<"\n Enter the choice:"; 
-    cin>>ch; 
-    switch (ch) 
-    { 
-        case 1: 
-        s.push(); 
-        break; 
-        case 2: 
-        s.pop(); 
-        break; 
-        case 3: 
-        s.display(); 
-        break; 
-        case 4: 
-        cout<<"Exit."; 
-        break; 
-        default: 
-        cout<<"Invalide input"; 
-    } 
-} 
-while(ch!=4); 
-return 0; 
-} 
- 
-Output: 
-1. Push Function: 
- 2. Pop Function: 
- 3. Display Function: 
- 4. Exit Function: 
- Enter your choice: 1 
-Enter your element:10 
- 
- Enter your choice: 1 
-Enter your element:20 
- 
- Enter your choice: 1 
-Enter your element:30 
-Enter your choice: 3 
-Stack elements are: 
-30 
-20 
-10 
-Enter your choice: 2 
-Delete item is:30 
-Enter your choice: 3 
-Stack elements are: 
-20 
-10 
-Enter your choice: 4 
-Exit. 
-=== Code Execution Successful ===
-        </pre>
+    <!-- Practical 4 -->
+    <div class="practical">
+        <h2>Q4: Python program to implement all tuple operations</h2>
+        <code>
+            <!-- Add code here -->
+            # 1. Creating tuples
+            tuple1 = (1, 2, 3)
+            tuple2 = ('a', 'b', 'c')
+            tuple3 = (4, 5, 6, 7)
+            
+            # 2. Accessing elements
+            print("First element of tuple1:", tuple1[0])
+            print("Last element of tuple2:", tuple2[-1])
+            
+            # 3. Slicing tuples
+            sliced_tuple = tuple1[1:3]
+            print("Sliced tuple1 from index 1 to 2:", sliced_tuple)
+            
+            # 4. Concatenating tuples
+            combined_tuple = tuple1 + tuple2
+            print("Concatenated tuple:", combined_tuple)
+            
+            # 5. Repeating tuples
+            repeated_tuple = tuple2 * 2
+            print("Repeated tuple2:", repeated_tuple)
+            
+            # 6. Checking membership
+            print("Is 'a' in tuple2?", 'a' in tuple2)
+            
+            # 7. Finding length of a tuple
+            length_of_tuple1 = len(tuple1)
+            print("Length of tuple1:", length_of_tuple1)
+            
+            # 8. Counting elements
+            count_of_2 = tuple1.count(2)
+            print("Count of 2 in tuple1:", count_of_2)
+            
+            # 9. Finding index of an element
+            index_of_3 = tuple1.index(3)
+            print("Index of 3 in tuple1:", index_of_3)
+            
+            # 10. Tuples with single element (note the comma)
+            single_element_tuple = (42,)
+            print("Single element tuple:", single_element_tuple)
+            
+            # 11. Nested tuples
+            nested_tuple = (tuple1, tuple2, tuple3)
+            print("Nested tuple:", nested_tuple)
+            
+            # 12. Converting a list to a tuple
+            my_list = [10, 20, 30]
+            converted_tuple = tuple(my_list)
+            print("Tuple created from list:", converted_tuple)
+            
+            # 13. Unpacking tuples
+            a, b, c = tuple1  # Unpacking the first three elements of tuple1
+            print("Unpacked values:", a, b, c)
+            
+            # 14. Creating a tuple with mixed data types
+            mixed_tuple = (1, "hello", 3.14, True)
+            print("Mixed data type tuple:", mixed_tuple)
+            
+            # 15. Iterating over a tuple
+            print("Iterating over tuple1:")
+            for element in tuple1:
+                print(element) 
+            
+        </code>
+    </div>
 
-    </section>
+    <!-- Practical 5 -->
+    <div class="practical">
+        <h2>Q5: Python program to implement all string operations</h2>
+        <code>
+            <!-- Add code here -->
+            # 1. Creating strings
+            string1 = "Hello, World!"
+            string2 = 'Python programming'
+            string3 = """This is a multi-line string."""
+            print("String 1:", string1)
+            print("String 2:", string2)
+            print("String 3:", string3)
+            
+            # 2. Accessing characters
+            print("First character of string1:", string1[0])
+            print("Last character of string2:", string2[-1])
+            
+            # 3. Slicing strings
+            sliced_string = string1[7:12]
+            print("Sliced string1 from index 7 to 11:", sliced_string)
+            
+            # 4. Concatenating strings
+            combined_string = string1 + " " + string2
+            print("Concatenated string:", combined_string)
+            
+            # 5. Repeating strings
+            repeated_string = string2 * 2
+            print("Repeated string2:", repeated_string)
+            
+            # 6. Checking membership
+            print("Is 'Python' in string2?", 'Python' in string2)
+            
+            # 7. Finding length of a string
+            length_of_string1 = len(string1)
+            print("Length of string1:", length_of_string1)
+            
+            # 8. Changing case
+            print("Uppercase string1:", string1.upper())
+            print("Lowercase string2:", string2.lower())
+            print("Title case string1:", string1.title())
+            
+            # 9. Stripping whitespace
+            whitespace_string = "   Hello, World!   "
+            print("String with whitespace stripped:", whitespace_string.strip())
+            
+            # 10. Replacing substrings
+            replaced_string = string1.replace("World", "Python")
+            print("String1 after replacement:", replaced_string)
+            
+            # 11. Splitting strings
+            split_string = string2.split()  # Split by whitespace
+            print("Split string2:", split_string)
+            
+            # 12. Joining strings
+            joined_string = ", ".join(split_string)
+            print("Joined string from split_string:", joined_string)
+            
+            # 13. Finding substrings
+            index_of_substring = string1.find("World")
+            print("Index of 'World' in string1:", index_of_substring)
+            
+            # 14. Counting substrings
+            count_of_o = string1.count('o')
+            print("Count of 'o' in string1:", count_of_o)
+            
+            # 15. Formatting strings
+            name = "Alice"
+            age = 30
+            formatted_string = f"My name is {name} and I am {age} years old."
+            print("Formatted string:", formatted_string)
+            
+            # 16. Checking if string starts/ends with a substring
+            print("Does string1 start with 'Hello'?", string1.startswith("Hello"))
+            print("Does string2 end with 'ming'?", string2.endswith("ming"))
+            
+            # 17. Iterating over a string
+            print("Iterating over string1:")
+            for char in string1:
+                print(char, end=' ')
+            print()  # for a new line
+            
+            # 18. Reversing a string
+            reversed_string = string1[::-1]b
+            print("Reversed string1:", reversed_string)
+            
+        </code>
+    </div>
 
-    <section>
-        <h2>5. Queue Operations: Enqueue, Dequeue, and Display</h2>
-        <pre>
-            <!-- Paste your code and explanation here -->
-        #include <iostream> 
-using namespace std; 
-class Queue  
-{ 
-public: 
-int queue[5], n = 5, front = -1, rear = -1; 
-void EnQueue()  
-{ 
-int value; 
-if (rear == n-1)  
-{ 
-} 
-cout << "\n Queueis Overflow:"; 
-else 
-{ 
-if (front == -1) 
-{ 
-front = 0; 
-} 
-        cout << "Enter the element to Enqueue in Queue: "; 
-        cin >> value; 
-        rear ++; 
-        queue[rear] = value; 
-    } 
-} 
-    void DeQueue()  
-    { 
-    if (front > rear)  
-    { 
-        cout << "\nQueue Underflow:"; 
-    } 
-    else  
-    { 
-        cout << "\nElement "<< queue[front] <<" Dequeued from Queue"; 
-        front ++; 
-    } 
-    } 
-    void Display()  
-    { 
-    if (front == -1 || front > rear) 
-    { 
-        cout << "\nQueue is Empty. Please insert elements into the Queue."; 
-    } 
-    else 
-    { 
-        cout << "\nQueue Elements: "; 
-        for (int i = front; i <= rear; i++)  
-            cout<<queue[i]<< " "; 
-    } 
-    } 
-}; 
-int main() 
-{ 
-    Queue q; 
-    int choice; 
-    cout << "\n1: Enqueue."; 
-    cout << "\n2: Dequeue."; 
-    cout << "\n3: Display."; 
-    cout << "\n4: EXIT."; 
-    do { 
-        cout << "\nEnter Choice: "; 
-        cin >> choice; 
-        switch (choice) 
-        { 
-            case 1: 
-                q.EnQueue(); 
-                break; 
-            case 2: 
-                q.DeQueue(); 
-                break; 
-            case 3: 
-                q.Display(); 
-                break; 
-            case 4: 
-                cout << "\nPROGRAM EXIT."; 
-                break; 
-            default: 
-                cout << "\nInvalid choice.."; 
-        } 
-    } 
-    while (choice != 4); 
-    return 0; 
-} 
- 
-Output: 
-1: Enqueue. 
-2: Dequeue. 
-3: Display. 
-4: EXIT. 
-Enter Choice: 1 
-Enter the element to Enqueue in Queue: 10 
-Enter Choice: 1 
-Enter the element to Enqueue in Queue: 20 
-Enter Choice: 1 
-Enter the element to Enqueue in Queue: 30 
-Enter Choice: 1 
-Enter the element to Enqueue in Queue: 40 
-Enter Choice: 1 
-Enter the element to Enqueue in Queue: 50 
-Enter Choice: 3 
-Queue Elements: 10 20 30 40 50  
-Enter Choice: 2 
-Element 10 Dequeued from Queue 
-Enter Choice: 3 
-Queue Elements: 20 30 40 50  
-Enter Choice: 2 
-Element 20 Dequeued from Queue 
-Enter Choice: 3 
-Queue Elements: 30 40 50  
-Enter Choice: 4 
-PROGRAM EXIT. 
-=== Code Execution Successful ===
-        </pre>
-    </section>
+    <!-- Practical 6 -->
+    <div class="practical">
+        <h2>Q6: Python program to display Armstrong numbers in range from 1-1000</h2>
+        <code>
+            <!-- Add code here -->
+            # Initialize an empty list to store Armstrong numbers
+            armstrong_numbers = []
+            
+            # Loop through the range from 1 to 1000
+            for num in range(1, 1001):
+                # Convert the number to string to iterate through its digits
+                digits = str(num)
+                # Calculate the sum of cubes of the digits
+                sum_of_cubes = 0
+                for digit in digits:
+                    sum_of_cubes += int(digit) ** len(digits)
+                
+                # Check if the sum of cubes is equal to the original number
+                if sum_of_cubes == num:
+                    armstrong_numbers.append(num)
+            
+            # Display the Armstrong numbers found
+            print("Armstrong numbers between 1 and 1000:", armstrong_numbers)
+            
+        </code>
+    </div>
 
-    <section>
-        <h2>6. Construct Postfix Expression from Infix Expression</h2>
-        <pre>
-            <!-- Paste your code and explanation here -->
-     #include <iostream> 
-using namespace std; 
-const int MAX = 20; // Size for expression and stack 
-char Exp[MAX]; // Input infix expression 
-char opstack[MAX]; // Stack for operators 
-int top1 = -1; // Top of the operator stack 
-// Function to push an operator onto the stack 
-void oppush(char val1) { 
-if (top1 >= MAX - 1) 
-cout << "Stack Overflow" << endl; 
-else { 
-top1++; 
-opstack[top1] = val1; 
-} 
-} 
-// Function to pop an operator from the stack 
-char oppop() { 
-if (top1 <= -1) { 
-cout << "Stack Underflow" << endl; 
-return '\0'; // Return a null character to indicate an error 
-} else { 
-return opstack[top1--]; 
-} 
-} 
-// Function to get the precedence of operators 
-int prec(char c) { 
-if (c == '^') 
-return 3; 
-else if (c == '/' || c == '*') 
-return 2; 
-else if (c == '+' || c == '-') 
-return 1; 
-else 
-return -1; 
-} 
-// Function to get the length of the expression 
-int size(const char* str) { 
-int length = 0; 
-while (str[length] != '\0') { 
-length++; 
-} 
-return length; 
-} 
-// Function to convert infix expression to postfix 
-void infixToPostfix(const char* expression, char* postfix) { 
-top1 = -1; // Reset stack for new conversion 
-int pIndex = 0; 
-for (int i = 0; i < size(expression); i++) { 
-char c = expression[i]; 
-        if ((c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z') || (c >= '0' && c <= '9')) { 
-            postfix[pIndex++] = c; // If it's an operand, add to postfix expression 
-        } else if (c == '(') { 
-            oppush(c); // Push '(' to stack 
-        } else if (c == ')') { 
-            // Pop from stack to postfix until '(' is found 
-            while (top1 != -1 && opstack[top1] != '(') { 
-                postfix[pIndex++] = oppop(); 
-            } 
-            if (top1 != -1 && opstack[top1] == '(') 
-                oppop(); // Remove '(' 
-        } else { 
-            // Pop from stack to postfix while the precedence of the operator at top of stack is greater than or 
-equal to the current operator 
-            while (top1 != -1 && prec(opstack[top1]) >= prec(c)) { 
-                postfix[pIndex++] = oppop(); 
-            } 
-            oppush(c); // Push the current operator to the stack 
-        } 
-    } 
-    // Pop all remaining operators from the stack to postfix 
-    while (top1 != -1) { 
-        postfix[pIndex++] = oppop(); 
-    } 
-    postfix[pIndex] = '\0'; // Null-terminate the postfix expression 
-} 
- 
-int main() { 
-    cout << "Enter infix expression: "; 
-    cin >> Exp; // Input the infix expression 
- 
-    char postfix[MAX]; 
-    infixToPostfix(Exp, postfix); // Convert the infix expression to postfix 
- 
-    cout << "Postfix Expression: " << postfix << endl; 
- 
-    return 0; 
-} 
- 
-Input: 
-Enter infix expression: A+B*(C^D-E) 
-Output: 
-Postfix Expression: ABCD^E-*+
-        </pre>
-    </section>
+    <!-- Practical 7 -->
+    <div class="practical">
+        <h2>Q7: Python program to display prime numbers in range from 1-100</h2>
+        <code>
+            <!-- Add code here -->
+            # Loop through numbers from 2 to 100
+            for num in range(2, 101):
+                is_prime = True  # Assume the number is prime
+            
+                # Check if num is divisible by any number from 2 to num-1
+                for i in range(2, num):
+                    if num % i == 0:
+                        is_prime = False  # Not a prime number
+                        break  # Stop checking further
+            
+                # If it's still considered prime, print it
+                if is_prime:
+                    print(num)
+            
+        </code>
+    </div>
 
-    <section>
-        <h2>7. Construct Prefix Expression from Infix Expression</h2>
-        <pre>
-            <!-- Paste your code and explanation here -->
-       #include <iostream> 
-using namespace std; 
- 
-const int MAX = 20; // Size for expression and stack 
-char Exp[MAX]; // Input infix expression 
-char opstack[MAX]; // Stack for operators 
-int top1 = -1; // Top of the operator stack 
- 
-// Function to push an operator onto the stack 
-void oppush(char val1) { 
-    if (top1 >= MAX - 1) 
-        cout << "Stack Overflow" << endl; 
-    else { 
-        top1++; 
-        opstack[top1] = val1; 
-    } 
-} 
- 
-// Function to pop an operator from the stack 
-char oppop() { 
-    if (top1 <= -1) { 
-        cout << "Stack Underflow" << endl; 
-        return '\0'; // Return a null character to indicate an error 
-    } else { 
-        return opstack[top1--]; 
-    } 
-} 
- 
-// Function to get the precedence of operators 
-int prec(char c) { 
-    if (c == '^') 
-        return 3; 
-    else if (c == '/' || c == '*') 
-        return 2; 
-    else if (c == '+' || c == '-') 
-        return 1; 
-    else 
-        return -1; 
-} 
- 
-// Function to get the length of the expression 
-int size(const char* str) { 
-    int length = 0; 
-    while (str[length] != '\0') { 
-        length++; 
-    } 
-    return length; 
-} 
- 
-// Function to reverse the string in place 
-void reverseString(char* str) { 
-    int start = 0; 
-    int end = size(str) - 1; 
-    char temp; 
-    while (start < end) { 
-        temp = str[start]; 
-        str[start] = str[end]; 
-        str[end] = temp; 
-        start++; 
-        end--; 
-    } 
-} 
- 
-// Function to convert infix expression to postfix 
-void infixToPostfix(const char* expression, char* postfix) { 
-    top1 = -1; // Reset stack for new conversion 
-    int pIndex = 0; 
-    for (int i = 0; i < size(expression); i++) { 
-        char c = expression[i]; 
-        if ((c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z') || (c >= '0' && c <= '9')) { 
-            postfix[pIndex++] = c; // If it's an operand, add to postfix expression 
-        } else if (c == '(') { 
-            oppush(c); // Push '(' to stack 
-        } else if (c == ')') { 
-            // Pop from stack to postfix until '(' is found 
-            while (top1 != -1 && opstack[top1] != '(') { 
-                postfix[pIndex++] = oppop(); 
-            } 
-            if (top1 != -1 && opstack[top1] == '(') 
-                oppop(); // Remove '(' 
-        } else { 
-            // Pop from stack to postfix while the precedence of the operator at top of stack is greater than or 
-equal to the current operator 
-            while (top1 != -1 && prec(opstack[top1]) >= prec(c)) { 
-                postfix[pIndex++] = oppop(); 
-            } 
-            oppush(c); // Push the current operator to the stack 
-        } 
-    } 
-    // Pop all remaining operators from the stack to postfix 
-    while (top1 != -1) { 
-        postfix[pIndex++] = oppop(); 
-    } 
-    postfix[pIndex] = '\0'; // Null-terminate the postfix expression 
-} 
- 
-// Function to convert infix expression to prefix notation 
-void infixToPrefix() { 
-    char reversedExp[MAX]; 
-    char postfix[MAX]; 
-    char prefix[MAX]; 
- 
-    // Copy Exp to reversedExp 
-    int length = size(Exp); 
-    for (int i = 0; i < length; i++) { 
-        reversedExp[i] = Exp[i]; 
-    } 
-    reversedExp[length] = '\0'; 
- 
-    // Reverse the expression 
-    reverseString(reversedExp); 
- 
-    // Replace '(' with ')' and vice versa 
-    for (int i = 0; i < length; i++) { 
-        if (reversedExp[i] == '(') 
-            reversedExp[i] = ')'; 
-        else if (reversedExp[i] == ')') 
-            reversedExp[i] = '('; 
-    } 
- 
-    // Convert reversed infix to postfix 
-    infixToPostfix(reversedExp, postfix); // Convert the reversed expression 
- 
-    // Reverse the postfix expression to get the prefix expression 
-    reverseString(postfix); 
- 
-    // Copy postfix to prefix 
-    int pLength = size(postfix); 
-    for (int i = 0; i < pLength; i++) { 
-        prefix[i] = postfix[i]; 
-    } 
-    prefix[pLength] = '\0'; 
- 
-    cout << "Prefix Expression: " << prefix << endl; 
-} 
- 
-int main() { 
-    cout << "Enter infix expression: "; 
-    cin >> Exp; // Input the infix expression 
- 
-    infixToPrefix(); // Convert the infix expression to prefix 
- 
-    return 0; 
-} 
- 
-Input: 
-Enter infix expression: A+B*(C^D-E) 
-Output: 
-Prefix Expression: +A*B^-CDE
-        </pre>
-    </section>
+    <!-- Practical 8 -->
+    <div class="practical">
+        <h2>Q8: Python program to print nth Fibonacci number</h2>
+        <code>
+            <!-- Add code here -->
+            # Get the value of n from the user
+            n = int(input("Enter the position of the Fibonacci number to retrieve (n): "))
+            
+            # Initialize the first two Fibonacci numbers
+            a, b = 0, 1
+            
+            # Handle the case for n = 1
+            if n == 1:
+                print(f"The {n}th Fibonacci number is: {a}")
+            else:
+                # Calculate the nth Fibonacci number
+                for _ in range(2, n + 1):
+                    a, b = b, a + b
+            
+                print(f"The {n}th Fibonacci number is: {b}")
+            
+        </code>
+    </div>
 
-    <section>
-        <h2>8. Linear and Binary Search</h2>
-        <pre>
-            <!-- Paste your code and explanation here -->
-       #include <iostream> 
-#include <algorithm>  // For sort function 
-using namespace std; 
- 
-// Function for Linear Search 
-int linearSearch(int arr[], int n, int key) { 
-    for (int i = 0; i < n; i++) { 
-        if (arr[i] == key) { 
-            return i;  // Element found at index i 
-        } 
-    } 
-    return -1;  // Element not found 
-} 
- 
-// Function for Binary Search (requires sorted array) 
-int binarySearch(int arr[], int n, int key) { 
-    int low = 0, high = n - 1; 
-    while (low <= high) { 
-        int mid = low + (high - low) / 2; 
-         
-        if (arr[mid] == key) { 
-            return mid;  // Element found at index mid 
-        } 
-         
-        if (arr[mid] < key) { 
-            low = mid + 1;  // Search in the right half 
-        } else { 
-            high = mid - 1;  // Search in the left half 
-        } 
-    } 
-    return -1;  // Element not found 
-} 
- 
-int main() { 
-    int n, key; 
-     
-    // Accepting array size and elements from the user 
-    cout << "Enter the number of elements: "; 
-    cin >> n; 
-    int arr[n]; 
-     
-    cout << "Enter the elements of the array: "; 
-    for (int i = 0; i < n; i++) { 
-        cin >> arr[i]; 
-    } 
-     
-    // Accepting the key (element to search) from the user 
-    cout << "Enter the element to search: "; 
-    cin >> key; 
-     
-    // Perform Linear Search 
-    int linearResult = linearSearch(arr, n, key); 
-    if (linearResult != -1) { 
-        cout << "Linear Search: Element " << key << " found at index " << linearResult << endl; 
-    } else { 
-        cout << "Linear Search: Element " << key << " not found in the array." << endl; 
-    } 
-     
-    // Perform Binary Search (need to sort the array first) 
-    sort(arr, arr + n);  // Sorting the array 
-    int binaryResult = binarySearch(arr, n, key); 
-    if (binaryResult != -1) { 
-        cout << "Binary Search: Element " << key << " found at index " << binaryResult << endl; 
-    } else { 
-        cout << "Binary Search: Element " << key << " not found in the array." << endl; 
-    } 
- 
-    return 0; 
-} 
- 
-Output: 
-Enter the number of elements: 5 
-Enter the elements of the array: 10 20 30 40 50 
-Enter the element to search: 30 
-Linear Search: Element 30 found at index 2 
-Binary Search: Element 30 found at index 2
-        </pre>
-    </section>
+    <!-- Practical 9 -->
+    <div class="practical">
+        <h2>Q9: Python program to perform matrix addition and multiplication for M x N matrix</h2>
+        <code>
+            <!-- Add code here -->
+            import numpy as np
 
-    <section>
-        <h2>9. Bubble Sort</h2>
-        <pre>
-            <!-- Paste your code and explanation here -->
-        #include <iostream> 
-using namespace std; 
- 
-void bubbleSort(int arr[], int n) { 
-    bool swapped; 
-    for (int i = 0; i < n-1; i++) { 
-        swapped = false; 
-        for (int j = 0; j < n-i-1; j++) { 
-            if (arr[j] > arr[j+1]) { 
-                int temp = arr[j]; 
-                arr[j] = arr[j+1]; 
-                arr[j+1] = temp; 
-                swapped = true; 
-            } 
-       } 
-        if (!swapped) 
-            break; 
-    } 
-} 
- 
-void printArray(int arr[], int n) { 
-    for (int i = 0; i < n; i++) 
-        cout << arr[i] << " "; 
-    cout << endl; 
-} 
- 
-int main() { 
-    int n; 
- 
-    // 1. Ask the user for the number of elements in the array 
-    cout << "Enter the number of elements: "; 
-    cin >> n; 
- 
-     int arr[n]; // Create an array of size 'n' 
- 
-    // 2. Ask the user to enter each element of the array 
-    cout << "Enter the elements:\n"; 
-    for (int i = 0; i < n; i++) { 
-        cout << "Element " << i + 1 << ": "; 
-        cin >> arr[i]; 
-    } 
- 
-    // Sort the array using bubble sort 
-    bubbleSort(arr, n); 
- 
-// Output the sorted array 
-cout << "Sorted array: \n"; 
-printArray(arr, n); 
-return 0; 
-} 
-Output 
-Enter the number of elements: 5 
-Enter the elements: 
-Element 1: 64 
-Element 2: 25 
-Element 3: 12 
-Element 4: 22 
-Element 5: 11 
-Sorted array:  
-11 12 22 25 64
-        </pre>
-    </section>
+            def create_matrix(rows, cols):
+                """Creates a matrix of the given dimensions and initializes it with user input."""
+                matrix = np.zeros((rows, cols), dtype=int)
+                for i in range(rows):
+                    for j in range(cols):
+                        matrix[i][j] = int(input(f"Enter element at position ({i+1}, {j+1}): "))
+                return matrix
+            
+            def print_matrix(matrix):
+                """Prints the given matrix in a readable format."""
+                print(matrix)
+            
+            def add_matrices(matrix1, matrix2):
+                """Adds two matrices of the same dimensions using NumPy."""
+                return np.add(matrix1, matrix2)
+            
+            def multiply_matrices(matrix1, matrix2):
+                """Multiplies two matrices, ensuring compatibility, using NumPy."""
+                return np.dot(matrix1, matrix2)
+            
+            def main():
+                rows = int(input("Enter the number of rows: "))
+                cols = int(input("Enter the number of columns: "))
+            
+                print("Enter elements for matrix 1:")
+                matrix1 = create_matrix(rows, cols)
+            
+                print("Enter elements for matrix 2:")
+                matrix2 = create_matrix(rows, cols)
+            
+                print("\nMatrix 1:")
+                print_matrix(matrix1)
+            
+                print("\nMatrix 2:")
+                print_matrix(matrix2)
+            
+                sum_matrix = add_matrices(matrix1, matrix2)
+                product_matrix = multiply_matrices(matrix1, matrix2)
+            
+                print("\nSum of matrices:")
+                print_matrix(sum_matrix)
+            
+                print("\nProduct of matrices:")
+                print_matrix(product_matrix)
+            
+            if _name_ == "_main_":
+                main()
+            
+        </code>
+    </div>
 
-    <section>
-        <h2>10. Selection Sort</h2>
-        <pre>
-            <!-- Paste your code and explanation here -->
-       #include <iostream> 
-using namespace std; 
-void selectionSort(int arr[], int n) { 
-for (int i = 0; i < n-1; i++) { 
-int minIndex = i; 
-for (int j = i+1; j < n; j++) { 
-if (arr[j] < arr[minIndex]) { 
-minIndex = j; 
-} 
-} 
-if (minIndex != i) { 
-int temp = arr[minIndex]; 
-arr[minIndex] = arr[i]; 
-arr[i] = temp; 
-} 
-} 
-} 
-void printArray(int arr[], int size) { 
-for (int i = 0; i < size; i++) { 
-cout << arr[i] << " "; 
-} 
-cout << endl; 
-} 
-int main() { 
-int n; 
-cout << "Enter the number of elements: "; 
-cin >> n; 
-int arr[n]; 
-cout << "Enter the elements:\n"; 
-for (int i = 0; i < n; i++) { 
-cout << "Element " << i + 1 << ": "; 
-cin >> arr[i]; 
-} 
-selectionSort(arr, n); 
-cout << "Sorted array: \n"; 
-printArray(arr, n); 
-return 0; 
-} 
-Output: 
-Enter the number of elements: 5 
-Enter the elements: 
-Element 1: 64 
-Element 2: 25 
-Element 3: 12 
-Element 4: 22 
-Element 5: 11 
-Sorted array:  
-11 12 22 25 64
-        </pre>
-    </section>
+    <!-- Practical 10 -->
+    <div class="practical">
+        <h2>Q10: Python program to implement linear search on 20 randomly generated numbers</h2>
+        <code>
+            <!-- Add code here -->
+            import random
 
-    <section>
-        <h2>11. Insertion Sort</h2>
-        <pre>
-            <!-- Paste your code and explanation here -->
-       #include <iostream> 
-using namespace std; 
-void insertionSort(int arr[], int n) { 
-for (int i = 1; i < n; ++i) { 
-int key = arr[i]; 
-int j = i - 1; 
-while (j >= 0 && arr[j] > key) { 
-arr[j + 1] = arr[j]; --j; 
-} 
-arr[j + 1] = key; 
-} 
-} 
-void printArray(int arr[], int size) { 
-for (int i = 0; i < size; ++i) { 
-cout << arr[i] << " "; 
-} 
-cout << endl; 
-} 
-int main() { 
-int n; 
-cout << "Enter the number of elements: "; 
-cin >> n; 
-int arr[n]; // Declare an array of size n 
-cout << "Enter the elements of the array: "; 
-for (int i = 0; i < n; i++) { 
-cin >> arr[i]; // Input elements from the user 
-} 
-cout << "Original array: "; 
-printArray(arr, n); 
-insertionSort(arr, n); 
-cout << "Sorted array: "; 
-printArray(arr, n); 
-return 0; 
-} 
-Input: 
-Enter the number of elements: 5 
-Enter the elements of the array: 34 22 19 90 45 
-Output: 
-Original array: 34 22 19 90 45  
-Sorted array: 19 22 34 45 90
-        </pre>
-    </section>
+            def linear_search(arr, x):
+                """
+                Performs linear search on the given array to find the target element.
+            
+                Args:
+                    arr: The array of elements to search.
+                    x: The target element to search for.
+            
+                Returns:
+                    The index of the target element if found, otherwise -1.
+                """
+            
+                for i in range(len(arr)):
+                    if arr[i] == x:
+                        return i
+                return -1
+            
+            # Generate 20 random numbers
+            random_numbers = [random.randint(1, 100) for _ in range(20)]
+            
+            # Print the generated numbers
+            print("Generated numbers:", random_numbers)
+            
+            # Get the target element from the user
+            target = int(input("Enter the number to search for: "))
+            
+            # Perform linear search
+            result = linear_search(random_numbers, target)
+            
+            # Print the result
+            if result != -1:
+                print(f"Element {target} found at index {result}")
+            else:
+                print(f"Element {target} not found in the array")
+            
+        </code>
+    </div>
 
-    <section>
-        <h2>12. Merge Sort</h2>
-        <pre>
-           
-            <!-- Paste your code and explanation here -->
-        #include <iostream> 
-using namespace std; 
- 
-// Merge function to merge two halves 
-void merge(int arr[], int left, int mid, int right) { 
-    int n1 = mid - left + 1; 
-    int n2 = right - mid; 
- 
-    // Temporary arrays to hold the left and right subarrays 
-    int leftArr[n1], rightArr[n2]; 
- 
-    // Copy data to temp arrays 
-    for (int i = 0; i < n1; i++) 
-        leftArr[i] = arr[left + i]; 
-    for (int i = 0; i < n2; i++) 
-        rightArr[i] = arr[mid + 1 + i]; 
- 
-    // Merging the temp arrays back into the original array 
-    int i = 0, j = 0, k = left; 
-    while (i < n1 && j < n2) { 
-        if (leftArr[i] <= rightArr[j]) { 
-            arr[k] = leftArr[i]; 
-            i++; 
-        } else { 
-            arr[k] = rightArr[j]; 
-            j++; 
-        } 
-        k++; 
-    } 
- 
-    // Copy remaining elements of leftArr[], if any 
-    while (i < n1) { 
-        arr[k] = leftArr[i]; 
-        i++; 
-        k++; 
-    } 
- 
-    // Copy remaining elements of rightArr[], if any 
-    while (j < n2) { 
-        arr[k] = rightArr[j]; 
-        j++; 
-        k++; 
-    } 
-} 
- 
-// Merge Sort function 
-void mergeSort(int arr[], int left, int right) { 
-    if (left >= right) 
-        return; // Base case: if the array has one or no elements 
- 
-    int mid = left + (right - left) / 2; // Find the middle point 
- 
-    // Recursively sort the two halves 
-    mergeSort(arr, left, mid); 
-} 
-mergeSort(arr, mid + 1, right); 
-// Merge the sorted halves 
-merge(arr, left, mid, right); 
-// Function to print the array 
-void printArray(int arr[], int n) { 
-for (int i = 0; i < n; i++) { 
-cout << arr[i] << " "; 
-} 
-cout << endl; 
-} 
-int main() { 
-int n; 
-// Input the number of elements 
-cout << "Enter the number of elements: "; 
-cin >> n; 
-int arr[n]; 
-// Input the elements of the array 
-cout << "Enter the elements of the array: "; 
-for (int i = 0; i < n; i++) { 
-cin >> arr[i]; 
-} 
-// Print the original array 
-cout << "Original array: "; 
-printArray(arr, n); 
-// Sort the array using Merge Sort 
-mergeSort(arr, 0, n - 1); 
-// Print the sorted array 
-cout << "Sorted array: "; 
-printArray(arr, n); 
-return 0; 
-} 
-Input: 
-Enter the number of elements: 6 
-Enter the elements of the array: 12 11 13 5 6 7 
-Output: 
-Original array: 12 11 13 5 6 7  
-Sorted array: 5 6 7 11 12 13 
-        </pre>
-    </section>
+    <!-- Practical 11 -->
+    <div class="practical">
+        <h2>Q11: Python program to implement binary search for strings</h2>
+        <code>
+            <!-- Add code here -->
+            def binary_search(arr, x):
+            """
+            Performs binary search on a sorted array of strings to find the target string.
+        
+            Args:
+                arr: The sorted array of strings to search.
+                x: The target string to search for.
+        
+            Returns:
+                The index of the target string if found, otherwise -1.
+            """
+        
+            low = 0
+            high = len(arr) - 1
+        
+            while low <= high:
+                mid = (low + high) // 2
+        
+                if arr[mid] == x:
+                    return mid
+                elif arr[mid] < x:
+                    low = mid + 1
+                else:
+                    high = mid - 1
+        
+            return -1
+        
+        # Example usage with a sorted list of strings
+        words = ["apple", "banana", "cherry", "date", "fig", "grape"]
+        target_word = input("Enter the word to search for: ")
+        
+        result = binary_search(words, target_word)
+        
+        if result != -1:
+            print(f"The word '{target_word}' was found at index {result}")
+        else:
+            print(f"The word '{target_word}' was not found in the list")
+        
+        </code>
+    </div>
 
-    <section>
-        <h2>13. Quick Sort</h2>
-        <pre>
-            <!-- Paste your code and explanation here -->
-      #include <iostream> 
-using namespace std; 
- 
-// Function to swap two elements in the array 
-void swap(int arr[], int pos1, int pos2) { 
-    int temp = arr[pos1]; 
-    arr[pos1] = arr[pos2]; 
-    arr[pos2] = temp; 
-} 
- 
-// Partition function to rearrange the array based on pivot 
-int partition(int arr[], int low, int high, int pivot) { 
-    int i = low; 
-    int j = low; 
-    while (i <= high) { 
-        if (arr[i] > pivot) { 
-            i++; 
-        } else { 
-            swap(arr, i, j); 
-            i++; 
-            j++; 
-        } 
-    } 
-    return j - 1; 
-} 
- 
-// QuickSort function to recursively sort the array 
-void quickSort(int arr[], int low, int high) { 
-    if (low < high) { 
-        int pivot = arr[high];  // Using the last element as pivot 
-        int pos = partition(arr, low, high, pivot); 
-        quickSort(arr, low, pos - 1);   // Recursively sort the left part 
-        quickSort(arr, pos + 1, high);  // Recursively sort the right part 
-    } 
-} 
- 
-int main() { 
-    int n; 
- 
-    // Take the size of the array as input 
-    cout << "Enter the size of the array: "; 
-    cin >> n; 
- 
-    int arr[n]; 
- 
-    // Take the elements of the array as input 
-    cout << "Enter " << n << " elements of the array: "; 
-    for (int i = 0; i < n; i++) { 
-        cin >> arr[i]; 
-    } 
- 
-    // Perform QuickSort 
-    quickSort(arr, 0, n - 1); 
- 
-    // Output the sorted array 
-    cout << "The sorted array is: "; 
-    for (int i = 0; i < n; i++) { 
-        cout << arr[i] << " "; 
-    } 
-    cout << endl; 
- 
-    return 0; 
-} 
- 
-Input: 
-Enter the size of the array: 6 
-Enter 6 elements of the array: 12 11 13 5 6 7 
-Output: 
-The sorted array is: 5 6 7 11 12 13
-        </pre>
-    </section>
+    <!-- Practical 12 -->
+    <div class="practical">
+        <h2>Q12: Python program to perform all random functions operations</h2>
+        <code>
+            <!-- Add code here -->
+            import random
 
-    <section>
-        <h2>14. Insertion in Binary Search Tree</h2>
-        <pre>
-            <!-- Paste your code and explanation here -->
-       #include <iostream> 
-using namespace std; 
- 
-// Define the structure of a node in the BST 
-struct Node { 
-    int data; 
-    Node* left; 
-    Node* right; 
-     
-    // Constructor to create a new node 
-    Node(int val) { 
-        data = val; 
-        left = right = nullptr; 
-    } 
-}; 
- 
-// Function to insert a new node in the BST 
-Node* insert(Node* root, int value) { 
-    // If the tree is empty, create a new node and return it 
-    if (root == nullptr) { 
-        return new Node(value); 
-    } 
-     
-    // Otherwise, recur down the tree 
-    if (value < root->data) { 
-        root->left = insert(root->left, value);  // Insert in the left subtree 
-    } else if (value > root->data) { 
-        root->right = insert(root->right, value);  // Insert in the right subtree 
-    } 
- 
-    return root;  // Return the (unchanged) node pointer 
-} 
- 
-// Function to perform an inorder traversal of the BST 
-void inorder(Node* root) { 
-    if (root == nullptr) { 
-        return; 
-    } 
-    inorder(root->left);   // Traverse the left subtree 
-    cout << root->data << " ";  // Print the node's data 
-    inorder(root->right);  // Traverse the right subtree 
-} 
- 
-int main() { 
-    Node* root = nullptr;  // Initially, the tree is empty 
-    int n, value; 
- 
-    // Take the number of elements to be inserted 
-    cout << "Enter the number of elements to insert into the BST: "; 
-    cin >> n; 
- 
-    // Take user input and insert the elements into the BST 
-    cout << "Enter " << n << " elements: "; 
-    for (int i = 0; i < n; i++) { 
-        cin >> value; 
-        root = insert(root, value); 
-    } 
-     
-    // Output the elements of the BST in sorted order (inorder traversal) 
-    cout << "Inorder traversal of the BST: "; 
-    inorder(root);  // Should output the elements in sorted order 
-    cout << endl; 
- 
-    return 0; 
-} 
- 
-Input: 
-Enter the number of elements to insert into the BST: 5 
-Enter 5 elements: 50 30 20 40 70 
-Output: 
-Inorder traversal of the BST: 20 30 40 50 70
-        </pre>
-    </section>
+            def main():
+                # Generate a random float between 0 and 1
+                random_float = random.random()
+                print("Random float:", random_float)
+            
+                # Generate a random integer between 1 and 10
+                random_int = random.randint(1, 10)
+                print("Random integer:", random_int)
+            
+                # Generate a random float between 2.5 and 10.0
+                random_uniform_float = random.uniform(2.5, 10.0)
+                print("Random uniform float:", random_uniform_float)
+            
+                # Generate a random even number between 2 and 10
+                random_even_number = random.randrange(2, 10, 2)
+                print("Random even number:", random_even_number)
+            
+                # Choose a random color from a list
+                colors = ['red', 'green', 'blue', 'yellow']
+                random_color = random.choice(colors)
+                print("Random color:", random_color)
+            
+                # Shuffle a list of numbers
+                numbers = [1, 2, 3, 4, 5]
+                random.shuffle(numbers)
+                print("Shuffled numbers:", numbers)
+            
+                # Sample 5 letters from a string
+                letters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
+                random_letters = random.sample(letters, 5)
+                print("Random letters:", random_letters)
+            
+            if _name_ == "_main_":
+                main()
+            
+            
+        </code>
+    </div>
 
-    <section>
-        <h2>15. Search in Binary Search Tree</h2>
-        <pre>
-            <!-- Paste your code and explanation here -->
-       #include <iostream> 
-using namespace std; 
- 
-// Define the structure of a node in the BST 
-struct Node { 
-    int data; 
-    Node* left; 
-    Node* right; 
-     
-    // Constructor to create a new node 
-    Node(int val) { 
-        data = val; 
-        left = right = nullptr; 
-    } 
-}; 
- 
-// Function to insert a new node in the BST 
-Node* insert(Node* root, int value) { 
-    // If the tree is empty, create a new node and return it 
-    if (root == nullptr) { 
-        return new Node(value); 
-    } 
-     
-    // Otherwise, recur down the tree 
-    if (value < root->data) { 
-        root->left = insert(root->left, value);  // Insert in the left subtree 
-    } else if (value > root->data) { 
-        root->right = insert(root->right, value);  // Insert in the right subtree 
-    } 
- 
-    return root;  // Return the (unchanged) node pointer 
-} 
- 
-// Function to search for an element in the BST 
-Node* search(Node* root, int value) { 
-    // Base case: root is null or the value is found 
-    if (root == nullptr || root->data == value) { 
-        return root; 
-    } 
- 
-    // If the value is smaller than the root, search in the left subtree 
-    if (value < root->data) { 
-        return search(root->left, value); 
-    } 
- 
-    // If the value is greater than the root, search in the right subtree 
-    return search(root->right, value); 
-} 
- 
-// Function to perform an inorder traversal of the BST 
-void inorder(Node* root) { 
-    if (root == nullptr) { 
-        return; 
-    } 
-    inorder(root->left);   // Traverse the left subtree 
-    cout << root->data << " ";  // Print the node's data 
-    inorder(root->right);  // Traverse the right subtree 
-} 
- 
-int main() { 
-    Node* root = nullptr;  // Initially, the tree is empty 
-    int n, value, searchVal; 
- 
-    // Take the number of elements to be inserted 
-    cout << "Enter the number of elements to insert into the BST: "; 
-    cin >> n; 
- 
-    // Take user input and insert the elements into the BST 
-    cout << "Enter " << n << " elements: "; 
-    for (int i = 0; i < n; i++) { 
-        cin >> value; 
-        root = insert(root, value); 
-    } 
- 
-    // Output the elements of the BST in sorted order (inorder traversal) 
-    cout << "Inorder traversal of the BST: "; 
-    inorder(root); 
-    cout << endl; 
- 
-    // Ask the user for the element to search in the BST 
-    cout << "Enter the element to search: "; 
-    cin >> searchVal; 
- 
-    // Search for the element in the BST 
-    Node* result = search(root, searchVal); 
- 
-    if (result != nullptr) { 
-        cout << "Element " << searchVal << " found in the BST." << endl; 
-    } else { 
-        cout << "Element " << searchVal << " not found in the BST." << endl; 
-    } 
- 
-    return 0; 
-} 
- 
-Input: 
-Enter the number of elements to insert into the BST: 5 
-Enter 5 elements: 50 30 20 40 70 
-Enter the element to search: 40 
-Output: 
-Inorder traversal of the BST: 20 30 40 50 70  
-Element 40 found in the BST. 
-        </pre>
-    </section>
+    <!-- Practical 13 -->
+    <div class="practical">
+        <h2>Q13: Python program to perform all math operations</h2>
+        <code>
+            <!-- Add code here -->
+            import math
 
-    <section>
-        <h2>16. Inorder Traversal in Binary Search Tree</h2>
-        <pre>
-            <!-- Paste your code and explanation here -->
-      #include <iostream> 
-using namespace std; 
- 
-// Structure for a node of the BST 
-struct Node { 
-    int data; 
-    Node* left; 
-    Node* right; 
-     
-    Node(int val) { 
-        data = val; 
-        left = right = nullptr; 
-    } 
-}; 
- 
-// Function to insert a node into the Binary Search Tree 
-Node* insert(Node* root, int data) { 
-    if (root == nullptr) { 
-        return new Node(data); 
-    } 
-     
-    if (data < root->data) { 
-        root->left = insert(root->left, data); 
-    } else { 
-        root->right = insert(root->right, data); 
-    } 
-    return root; 
-} 
- 
-// Function for Inorder Traversal 
-void inorderTraversal(Node* root) { 
-    if (root != nullptr) { 
-        inorderTraversal(root->left);   // Traverse left subtree 
-        cout << root->data << " ";      // Visit root 
-        inorderTraversal(root->right);  // Traverse right subtree 
-    } 
-} 
- 
-int main() { 
-    Node* root = nullptr; 
-    int n, val; 
-     
-    cout << "Enter the number of nodes to insert: "; 
-    cin >> n; 
- 
-    cout << "Enter the elements to insert into the BST:\n"; 
-    for (int i = 0; i < n; ++i) { 
-        cin >> val; 
-        root = insert(root, val); 
-    } 
- 
-    cout << "Inorder Traversal of the BST: "; 
-    inorderTraversal(root);  // Perform Inorder Traversal 
-    cout << endl; 
- 
-    return 0; 
-} 
- 
-Output: 
-Enter the number of nodes to insert: 5 
-Enter the elements to insert into the BST: 
-50 30 20 40 70 
-Inorder Traversal of the BST: 20 30 40 50 70 
-        </pre>
-    </section>
+            def main():
+                # Basic arithmetic operations
+                num1 = 10
+                num2 = 5
+            
+                addition = num1 + num2
+                subtraction = num1 - num2
+                multiplication = num1 * num2
+                division = num1 / num2
+                floor_division = num1 // num2
+                modulo = num1 % num2
+                exponent = num1 ** num2
+            
+                print("Addition:", addition)
+                print("Subtraction:", subtraction)
+                print("Multiplication:", multiplication)
+                print("Division:", division)
+                print("Floor Division:", floor_division)
+                print("Modulo:", modulo)
+                print("Exponent:", exponent)
+            
+                # Trigonometric functions
+                angle_degrees = 45
+                angle_radians = math.radians(angle_degrees)
+            
+                sine = math.sin(angle_radians)
+                cosine = math.cos(angle_radians)
+                tangent = math.tan(angle_radians)
+                arcsine = math.asin(sine)
+                arccosine = math.acos(cosine)
+                arctangent = math.atan(tangent)
+            
+                print("Sine:", sine)
+                print("Cosine:", cosine)
+                print("Tangent:", tangent)
+                print("Arcsine:", arcsine)
+                print("Arccosine:", arccosine)
+                print("Arctangent:", arctangent)
+            
+                # Logarithmic functions
+                number = 100
+                base = 10
+            
+                logarithm_base10 = math.log10(number)
+                logarithm_base_e = math.log(number)
+                logarithm_base_custom = math.log(number, base)
+            
+                print("Logarithm base 10:", logarithm_base10)
+                print("Logarithm base e:", logarithm_base_e)
+                print("Logarithm base", base, ":", logarithm_base_custom)
+            
+                # Exponential function
+                exponent = 2
+                base = 3
+                result = math.pow(base, exponent)
+                print("Exponential:", result)
+            
+                # Square root
+                number = 64
+                sqrt = math.sqrt(number)
+                print("Square root:", sqrt)
+            
+                # Absolute value
+                number = -10
+                abs_value = abs(number)
+                print("Absolute value:", abs_value)
+            
+            if _name_ == "_main_":
+                main()
+            
+        </code>
+    </div>
 
-    <section>
-        <h2>17. Preorder Traversal in Binary Search Tree</h2>
-        <pre>
-            <!-- Paste your code and explanation here -->
-     #include <iostream> 
-using namespace std; 
- 
-// Structure for a node of the BST 
-struct Node { 
-    int data; 
-    Node* left; 
-    Node* right; 
-     
-    Node(int val) { 
-        data = val; 
-        left = right = nullptr; 
-    } 
-}; 
- 
-// Function to insert a node into the Binary Search Tree 
-Node* insert(Node* root, int data) { 
-    if (root == nullptr) { 
-        return new Node(data); 
-    } 
-     
-    if (data < root->data) { 
-        root->left = insert(root->left, data); 
-    } else { 
-        root->right = insert(root->right, data); 
-    } 
-    return root; 
-} 
- 
-// Function for Preorder Traversal 
-void preorderTraversal(Node* root) { 
-    if (root != nullptr) { 
-        cout << root->data << " ";  // Visit root 
-        preorderTraversal(root->left);  // Traverse left subtree 
-        preorderTraversal(root->right); // Traverse right subtree 
-    } 
-} 
- 
-int main() { 
-    Node* root = nullptr; 
-    int n, val; 
-     
-    cout << "Enter the number of nodes to insert: "; 
-    cin >> n; 
- 
-    cout << "Enter the elements to insert into the BST:\n"; 
-    for (int i = 0; i < n; ++i) { 
-        cin >> val; 
-        root = insert(root, val); 
-    } 
- 
-    cout << "Preorder Traversal of the BST: "; 
-    preorderTraversal(root);  // Perform Preorder Traversal 
-    cout << endl; 
- 
-    return 0; 
-} 
- 
-Output: 
-Enter the number of nodes to insert: 5 
-Enter the elements to insert into the BST: 
-50 30 20 40 70 
-Preorder Traversal of the BST: 50 30 20 40 70 
-        </pre>
-    </section>
+    <!-- Practical 14 -->
+    <div class="practical">
+        <h2>Q14: Python program to create user-defined functions with different types of arguments</h2>
+        <code>
+            <!-- Add code here -->
+            def greet(name):
+            """Greets the user by name."""
+            print("Hello,", name + "!")
+        
+        
+        def calculate_area(length, width):
+            """Calculates the area of a rectangle."""
+            area = length * width
+            return area
+        
+        
+        def factorial(n):
+            """Calculates the factorial of a non-negative integer."""
+            if n == 0:
+                return 1
+            else:
+                return n * factorial(n - 1)
+        
+        
+        def power(base, exponent=2):
+            """Calculates the power of a number. Exponent defaults to 2."""
+            return base ** exponent
+        
+        
+        def find_max(*numbers):
+            """Finds the maximum number in a variable number of arguments."""
+            max_num = numbers[0]
+            for num in numbers:
+                if num > max_num:
+                    max_num = num
+            return max_num
+        
+        
+        def print_info(**kwargs):
+            """Prints key-value pairs from a dictionary."""
+            for key, value in kwargs.items():
+                print(f"{key}: {value}")
+        
+        
+        if name == "main":
+            greet("Alice")
+            area = calculate_area(5, 10)
+            print("Area:", area)
+            result = factorial(5)
+            print("Factorial:", result)
+            power_result = power(2)  # Exponent defaults to 2
+            print("Power:", power_result)
+            max_value = find_max(10, 5, 8, 15, 3)
+            print("Maximum value:", max_value)
+            print_info(name="Bob", age=30, city="New York")
+        </code>
+    </div>
 
-    <section>
-        <h2>18. Postorder Traversal in Binary Search Tree</h2>
-        <pre>
-            <!-- Paste your code and explanation here -->
-       #include <iostream> 
-using namespace std; 
- 
-// Structure for a node of the BST 
-struct Node { 
-    int data; 
-    Node* left; 
-    Node* right; 
-     
-    Node(int val) { 
-        data = val; 
-        left = right = nullptr; 
-    } 
-}; 
- 
-// Function to insert a node into the Binary Search Tree 
-Node* insert(Node* root, int data) { 
-    if (root == nullptr) { 
-        return new Node(data); 
-    } 
-     
-    if (data < root->data) { 
-        root->left = insert(root->left, data); 
-    } else { 
-} 
-} 
-root->right = insert(root->right, data); 
-return root; 
-// Function for Postorder Traversal 
-void postorderTraversal(Node* root) { 
-if (root != nullptr) { 
-postorderTraversal(root->left);  // Traverse left subtree 
-postorderTraversal(root->right); // Traverse right subtree 
-cout << root->data << " ";       
-// Visit root 
-} 
-} 
-int main() { 
-Node* root = nullptr; 
-int n, val; 
-cout << "Enter the number of nodes to insert: "; 
-cin >> n; 
-cout << "Enter the elements to insert into the BST:\n"; 
-for (int i = 0; i < n; ++i) { 
-cin >> val; 
-root = insert(root, val); 
-} 
-cout << "Postorder Traversal of the BST: "; 
-postorderTraversal(root);  // Perform Postorder Traversal 
-cout << endl; 
-return 0; 
-} 
-Output: 
-Enter the number of nodes to insert: 5 
-Enter the elements to insert into the BST: 
-50 30 20 40 70 
-Postorder Traversal of the BST: 20 40 30 70 50
-        </pre>
-    </section>
-</main>
+    <!-- Practical 15 -->
+    <div class="practical">
+        <h2>Q15: Python program to create packages and import modules for a real application</h2>
+        <code>
+            <!-- Add code here -->
+            class Book:
+            def _init_(self, title, author):
+                self.title = title
+                self.author = author
+        
+            def _str_(self):
+                return f"'{self.title}' by {self.author}"
+                from .book import Book
+        
+        class Inventory:
+            def _init_(self):
+                self.books = []
+        
+            def add_book(self, book):
+                self.books.append(book)
+        
+            def list_books(self):
+                return [str(book) for book in self.books]
+        class User:
+            def _init_(self, name):
+                self.name = name
+        
+            def _str_(self):
+                return self.name
+                from .user import User
+        
+        class UserManager:
+            def _init_(self):
+                self.users = []
+        
+            def add_user(self, user):
+                self.users.append(user)
+        
+            def list_users(self):
+                return [str(user) for user in self.users]
+                from books.inventory import Inventory
+                from users.user_manager import UserManager
+                from books.book import Book
+                from users.user import User
+        
+        def main():
+            # Create inventory and user manager
+            inventory = Inventory()
+            user_manager = UserManager()
+        
+            # Add some books to the inventory
+            inventory.add_book(Book("1984", "George Orwell"))
+            inventory.add_book(Book("To Kill a Mockingbird", "Harper Lee"))
+        
+            # List books in inventory
+            print("Books in Inventory:")
+            for book in inventory.list_books():
+                print(book)
+        
+            # Add some users
+            user_manager.add_user(User("Alice"))
+            user_manager.add_user(User("Bob"))
+        
+            # List users
+            print("\nRegistered Users:")
+            for user in user_manager.list_users():
+                print(user)
+        
+        if _name_ == "_main_":
+            main()
+        
+        </code>
+    </div>
 
-<footer>
-    <p>DSA Solutions</p>
-</footer>
+    <!-- Practical 16 -->
+    <div class="practical">
+        <h2>Q16: Python program to perform file manipulations (open, close, read, write, append, copy)</h2>
+        <code>
+            <!-- Add code here -->
+            def file_operations(file_path, mode):
+            """Performs file operations based on the given mode.
+        
+            Args:
+                file_path (str): The path to the file.
+                mode (str): The file mode ('r' for read, 'w' for write, 'a' for append, 'rb' for binary read, 'wb' for binary write).
+        
+            Raises:
+                FileNotFoundError: If the file is not found.
+                IOError: If an I/O error occurs.
+            """
+        
+            try:
+                with open(file_path, mode) as file:
+                    if mode.startswith('r'):
+                        # Read mode
+                        if mode == 'r':
+                            content = file.read()
+                            print(content)
+                        elif mode == 'rb':
+                            content = file.read()
+                            print(content)  # Binary data might not be human-readable
+                    elif mode.startswith('w'):
+                        # Write mode
+                        if mode == 'w':
+                            file.write("This is the new content.\n")
+                        elif mode == 'wb':
+                            file.write(b"This is binary data.")
+                    elif mode == 'a':
+                        # Append mode
+                        file.write("\nAppended text.")
+            except FileNotFoundError:
+                print(f"File not found: {file_path}")
+            except IOError:
+                print("An I/O error occurred.")
+        
+        # Example usage:
+        file_path = "my_file.txt"
+        
+        # Read a text file
+        file_operations(file_path, 'r')
+        
+        # Write to a text file
+        file_operations(file_path, 'w')
+        
+        # Append to a text file
+        file_operations(file_path, 'a')
+        
+        # Read a binary file
+        binary_file_path = "binary_data.bin"
+        file_operations(binary_file_path, 'rb')
+        
+        # Write to a binary file
+        file_operations(binary_file_path, 'wb')
+        
+        
+        
+
+        </code>
+    </div>
+
+    <!-- Practical 17 -->
+    <div class="practical">
+        <h2>Q17: Python program to handle user-defined exceptions</h2>
+        <code>
+            <!-- Add code here -->
+            class NegativeNumberError(Exception):
+            """Exception raised when a negative number is encountered."""
+            def _init_(self, number):
+                super()._init_(f"Negative number {number} is not allowed")
+        
+        def factorial(n):
+            """Calculates the factorial of a non-negative integer.
+        
+            Args:
+                n (int): The non-negative integer.
+        
+            Raises:
+                NegativeNumberError: If the input number is negative.
+        
+            Returns:
+                int: The factorial of n.
+            """
+        
+            if n < 0:
+                raise NegativeNumberError(n)
+            elif n == 0:
+                return 1
+            else:
+                return n * factorial(n - 1)
+        
+        if _name_ == "_main_":
+            try:
+                num = int(input("Enter a non-negative integer: "))
+                result = factorial(num)
+                print(f"The factorial of {num} is {result}")
+            except NegativeNumberError as e:
+                print(e)
+        
+        
+        </code>
+    </div>
+
+    <!-- Practical 18 -->
+    <div class="practical">
+        <h2>Q18: Python program to handle different types of exceptions with multiple options</h2>
+        <code>
+            <!-- Add code here -->
+            def divide(x, y):
+            try:
+                result = x / y
+                print("Result:", result)
+            except ZeroDivisionError:
+                print("Error: Division by zero")
+            except TypeError:
+                print("Error: Operands must be numbers")
+            except Exception as e:
+                print("An unexpected error occurred:", e)
+        
+        # Test cases
+        divide(10, 2)  # Normal division
+        divide(10, 0)  # ZeroDivisionError
+        divide("hello", 2)  # TypeError
+        divide(10, "world")  # TypeError and potential ValueError
+        
+        </code>
+    </div>
+    
+    <div class="practical">
+        <h2>19. Perform a python to create command line arguments for solving binary search operation.</h2>
+        <code>
+            <!-- Add code here -->
+            import sys
+
+            def binary_search(arr, target):
+                left, right = 0, len(arr) - 1
+                while left <= right:
+                    mid = (left + right) // 2
+                    if arr[mid] == target:
+                        return mid
+                    elif arr[mid] < target:
+                        left = mid + 1
+                    else:
+                        right = mid - 1
+                return -1
+            
+            if _name_ == "_main_":
+                if len(sys.argv) < 3:
+                    print("Usage: python binary_search.py <sorted_list> <target>")
+                    print("Example: python binary_search.py 1,2,3,4,5 3")
+                    sys.exit(1)
+            
+                # Parse command-line arguments
+                sorted_list = list(map(int, sys.argv[1].split(',')))
+                target = int(sys.argv[2])
+            
+                # Perform binary search
+                result = binary_search(sorted_list, target)
+            
+                # Output result
+                if result != -1:
+                    print(f"Target found at index {result}")
+                else:
+                    print("Target not found in the list.")
+            
+            
+        </code>
+    </div>
+    <div class="practical">
+        <h2>20. Perform a python to find the substring in given whole string using using command line
+            arguments</h2>
+        <code>
+            <!-- Add code here -->
+            import sys
+
+            def find_substring(main_str, sub_str):
+                index = main_str.find(sub_str)
+                return index
+            
+            if _name_ == "_main_":
+                if len(sys.argv) < 3:
+                    print("Usage: python find_substring.py <main_string> <substring>")
+                    print("Example: python find_substring.py 'Hello World' 'World'")
+                    sys.exit(1)
+            
+                # Parse command-line arguments
+                main_string = sys.argv[1]
+                substring = sys.argv[2]
+            
+                # Perform substring search
+                result = find_substring(main_string, substring)
+            
+                # Output result
+                if result != -1:
+                    print(f"Substring found at index {result}")
+                else:
+                    print("Substring not found in the main string.")
+            
+            
+        </code>
+    </div>
+</div>
+
+</body>
+</html>
 
 </body>
 </html>
