@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Download</title>
+  <style>
+    body { display:flex; height:100vh; align-items:center; justify-content:center; font-family:Arial, sans-serif; }
+    button { padding:12px 18px; font-size:16px; cursor:pointer; border-radius:6px; border:1px solid #888; }
+  </style>
+</head>
+<body>
+  <button id="downloadBtn">Download file (Cloudfare)</button>
+
+
+
+  <button onclick="window.location.href='cn.zip'">
+    Download ZIP File (local)
+  </button>
+
+  <script>
+    // URL to the file (use the path below)
+    const fileUrl = "https://pub-50daf81c3f0d47229864b55199708ec6.r2.dev/cn%20practicals.zip";
+
+    document.getElementById("downloadBtn").addEventListener("click", () => {
+      // Create an invisible anchor and click it to trigger the download
+      const a = document.createElement("a");
+      a.href = fileUrl;
+      a.download = fileUrl.split("/").pop(); // uses the file's basename as filename
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+
+      // Fallback for browsers that ignore download attribute: navigate directly
+      // (uncomment if you prefer fallback)
+      // setTimeout(() => { window.location.href = fileUrl; }, 100);
+    });
+  </script>
+</body>
+</html>
