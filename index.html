@@ -4,9 +4,48 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Download</title>
-  <style>
-    body { display:flex; height:100vh; align-items:center; justify-content:center; font-family:Arial, sans-serif; }
-    button { padding:12px 18px; font-size:16px; cursor:pointer; border-radius:6px; border:1px solid #888; }
+    <style>
+    body {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 30px;
+      font-family: Arial, sans-serif;
+      background: #f2f2f2;
+    }
+
+    button {
+      padding: 12px 20px;
+      font-size: 16px;
+      cursor: pointer;
+      border: none;
+      border-radius: 6px;
+      background: #3b82f6;
+      color: white;
+      margin: 10px;
+      transition: 0.2s ease-in-out;
+    }
+
+    button:hover {
+      background: #1d4ed8;
+      transform: scale(1.03);
+    }
+
+    img {
+      width: 280px;
+      margin: 15px;
+      border-radius: 10px;
+      border: 2px solid #ccc;
+      padding: 5px;
+      background: white;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+      transition: 0.2s;
+    }
+
+    img:hover {
+      transform: scale(1.02);
+      border-color: #3b82f6;
+    }
   </style>
 </head>
 <body>
@@ -17,6 +56,9 @@
   <button onclick="window.location.href='cnfinal.zip'">
     Download ZIP File (local)
   </button>
+  <img src="mesh.png">
+  <img src="ring.png" alt="">
+  <img src="star.png" alt="">
 
   <script>
     // URL to the file (use the path below)
