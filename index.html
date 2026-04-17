@@ -128,12 +128,13 @@ if __name__ == "__main__":
 
 <h2>3. Binary Search</h2>
 <pre><code>
-def binary_search(arr, target):
+# Iterative Binary Search (Non-Recursive)
+def binary_search_iterative(arr, target):
     left = 0
     right = len(arr) - 1
 
     while left <= right:
-        mid = left + (right - left) // 2
+        mid = (left + right) // 2
 
         if arr[mid] == target:
             return mid
@@ -144,19 +145,28 @@ def binary_search(arr, target):
 
     return -1
 
-if __name__ == "__main__":
-    arr = [2, 3, 4, 10, 40]
-    target = 10
 
-    print(f"Array: {arr}")
-    print(f"Target: {target}")
+# Recursive Binary Search
+def binary_search_recursive(arr, left, right, target):
+    if left > right:
+        return -1
 
-    result = binary_search(arr, target)
+    mid = (left + right) // 2
 
-    if result != -1:
-        print(f"Element is present at index {result}")
+    if arr[mid] == target:
+        return mid
+    elif arr[mid] > target:
+        return binary_search_recursive(arr, left, mid - 1, target)
     else:
-        print("Element is not present in array")
+        return binary_search_recursive(arr, mid + 1, right, target)
+
+
+# Driver code
+arr = [2, 3, 4, 10, 40]
+target = 10
+
+print("Iterative Result:", binary_search_iterative(arr, target))
+print("Recursive Result:", binary_search_recursive(arr, 0, len(arr)-1, target))
 </code></pre>
 
 <h2>4. Quick Sort</h2>
@@ -189,7 +199,7 @@ if __name__ == "__main__":
     print("Sorted array:", arr)
 </code></pre>
 
-<h2>5. Job Sequencing</h2>
+<h2>5. Job Sequencing using greedy</h2>
 <pre><code>
 def print_job_scheduling(arr, t):
     n = len(arr)
@@ -233,7 +243,64 @@ if __name__ == '__main__':
     max_deadline = max(job[1] for job in arr)
     print_job_scheduling(arr, max_deadline + 1)
 </code></pre>
+<h2>Job Sequencing using Divide and Conquer approach</h2>
+<pre><code>
+def is_valid(schedule, max_deadline):
+    slots = [False] * max_deadline  # FIX: use max_deadline, not len(schedule)
 
+    for job in schedule:
+        deadline = job[1]
+
+        # Try to fit job in a free slot before its deadline
+        for i in range(min(deadline - 1, max_deadline - 1), -1, -1):
+            if not slots[i]:
+                slots[i] = True
+                break
+        else:
+            return False
+
+    return True
+
+
+def job_seq_dc_util(jobs, n, index, current, best, max_deadline):
+    if index == n:
+        if is_valid(current, max_deadline):
+            profit = sum(job[2] for job in current)
+            if profit > best[0]:
+                best[0] = profit
+                best[1] = current[:]
+        return
+
+    # Include job
+    current.append(jobs[index])
+    job_seq_dc_util(jobs, n, index + 1, current, best, max_deadline)
+
+    # Exclude job
+    current.pop()
+    job_seq_dc_util(jobs, n, index + 1, current, best, max_deadline)
+
+
+def job_sequencing_dc(jobs):
+    max_deadline = max(job[1] for job in jobs)  # FIX
+    best = [0, []]
+
+    job_seq_dc_util(jobs, len(jobs), 0, [], best, max_deadline)
+
+    print("D&C Job Sequence:", [job[0] for job in best[1]])
+    print("Max Profit:", best[0])
+
+
+# Driver
+jobs = [
+    ['a', 2, 100],
+    ['b', 1, 19],
+    ['c', 2, 27],
+    ['d', 1, 25],
+    ['e', 3, 15]
+]
+
+job_sequencing_dc(jobs)
+</code></pre>
 <h2>6. Fractional Knapsack</h2>
 <pre><code>
 class ItemValue:
@@ -331,38 +398,63 @@ if __name__ == '__main__':
 <h2>8. TSP</h2>
 <pre><code>
 import sys
-def tsp(mask, pos, n, dist, dp):
-	# Base case: if all cities have been visited
-	if mask == (1 << n) - 1:
-		return dist[pos][0] # Return to the starting city (0)
-	# If this state has already been computed, return it
-	if dp[mask][pos] != -1:
-		return dp[mask][pos]
-	ans = sys.maxsize
-	# Try to go to an unvisited city
-	for city in range(n):
-		if (mask & (1 << city)) == 0:
-			# City is unvisited
-			new_ans = dist[pos][city] + tsp(mask | (1 << city), city, n, dist, dp)
-			ans = min(ans, new_ans)
-	dp[mask][pos] = ans
-	return ans
-if __name__ == "__main__":
-	n = 4 # Number of cities
-	# Distance matrix
-	# dist[i][j] represents distance from city i to city j
-	dist = [
-		[0, 10, 15, 20],
-		[10, 0, 35, 25],
-		[15, 35, 0, 30],
-		[20, 25, 30, 0]
-	]
-	# dp memoization table initialized with -1
-	# 2^n states for the mask, and n positions
-	dp = [[-1 for _ in range(n)] for _ in range(1 << n)]
-	# Start from city 0, so mask is 1 (0th bit set), and position is 0
-	min_cost = tsp(1, 0, n, dist, dp)
-	print("The minimum cost for the Traveling Salesperson is:", min_cost)
+
+def tsp(mask, pos, n, dist, dp, parent):
+    if mask == (1 << n) - 1:
+        return dist[pos][0]
+
+    if dp[mask][pos] != -1:
+        return dp[mask][pos]
+
+    ans = sys.maxsize
+
+    for city in range(n):
+        if (mask & (1 << city)) == 0:
+            new_ans = dist[pos][city] + tsp(mask | (1 << city), city, n, dist, dp, parent)
+
+            if new_ans < ans:
+                ans = new_ans
+                parent[mask][pos] = city
+
+    dp[mask][pos] = ans
+    return ans
+
+
+def print_path(parent, n):
+    mask = 1
+    pos = 0
+    path = [0]
+
+    while True:
+        next_city = parent[mask][pos]
+        if next_city == -1:
+            break
+        path.append(next_city)
+        mask |= (1 << next_city)
+        pos = next_city
+
+    path.append(0)
+    print("Path:", path)
+
+
+# Driver code
+n = 4
+
+dist = [
+    [0, 10, 15, 20],
+    [10, 0, 35, 25],
+    [15, 35, 0, 30],
+    [20, 25, 30, 0]
+]
+
+# FIXED LINE
+dp = [[-1 for _ in range(n)] for _ in range(1 << n)]
+parent = [[-1 for _ in range(n)] for _ in range(1 << n)]
+
+min_cost = tsp(1, 0, n, dist, dp, parent)
+
+print("Minimum Cost:", min_cost)
+print_path(parent, n)
 
 </code></pre>
 
